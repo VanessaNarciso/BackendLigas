@@ -5,22 +5,12 @@ const jwt = require('jsonwebtoken')
 
 var secret = process.env.SECRET || require('../config.js').secret
 
-
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
+  nombre:{
+    type: String, 
     required: true
   },
-  age: {
-    type: Number,
-    required: true,
-    validate(value) {
-      if ( value < 13 ) {
-        throw new Error('Debes ser mayor de 13 años')
-      }
-    }
-  },
-  email: {
+  correo: {
     type: String,
     required: true,
     unique: true,
@@ -35,6 +25,9 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 3,
     trim: true
+  },
+  numeroTelefono: {
+    type: String
   },
   tokens: [{
     token: {
@@ -51,10 +44,11 @@ const userSchema = new mongoose.Schema({
   }
 })
 
-// una relacion entre dos Schemas, no lo guarda, es virtual 
-userSchema.virtual('todos', {
-  ref: 'Todo',
-  localField: '_id',
+//Relacion con ligas cortas 
+
+userSchema.virtual('ligascortas',{
+  ref: 'liga',
+  localField: '_id', 
   foreignField: 'createdBy'
 })
 
@@ -69,9 +63,11 @@ userSchema.methods.toJSON = function() {
 }
 
 
-userSchema.statics.findByCredentials = function(email, password) {
+//Encontrar usuario por credenciales 
+
+userSchema.statics.findByCredentials = function(correo, password) {
   return new Promise( function(resolve, reject) {
-    User.findOne({ email }).then(function(user) {
+    User.findOne({ correo }).then(function(user) {
       if( !user ) {
         return reject('User does not exist')
       }
@@ -88,6 +84,7 @@ userSchema.statics.findByCredentials = function(email, password) {
   })
 }
 
+//Generar tokens de autorizacion 
 userSchema.methods.generateToken = function() {
   const user = this
   const token = jwt.sign({ _id: user._id.toString() }, secret, { expiresIn: '7 days'})
@@ -101,6 +98,7 @@ userSchema.methods.generateToken = function() {
   })
 }
 
+//Encriptar password 
 userSchema.pre('save', function(next) {
   const user = this
   if( user.isModified('password') ) {
@@ -118,4 +116,3 @@ userSchema.pre('save', function(next) {
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
-

@@ -1,0 +1,54 @@
+<html> 
+    <head>
+        <title>Template 1</title>
+    </head>
+    <body>
+        <div id="main">
+        <p>title</p>
+        <input type="text" id='title'/>
+        <p>url of img (for now)</p>
+        <input type="text" id='imgUrl'/>
+        <p>footer</p>
+        <input type="text" id='footer'/>
+        <input type="button" id="btnSubmit" value="submit"/>
+        <script 
+        src="https://code.jquery.com/jquery-3.4.1.js" 
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+        </script>
+        <script>
+            var titulo = $("#title");
+var imgUrl = $("#imgUrl");
+var footer = $("#footer");
+var btnSubmit = $("#btnSubmit");
+
+let url = "http://localhost:3000/template1";
+
+
+btnSubmit.on("click",function(e){
+    event.preventDefault();
+    console.log("test");
+    var a = titulo.val()
+    var b = imgUrl.val()
+    var c = footer.val()
+    var jsonVar = {
+        titulo: a,
+        imgUrl: b,
+        footer: c,
+        exists: true
+    }
+    $.ajax({
+        url: url,
+        method: "GET",
+        data: jsonVar,
+        success: function(result){
+            console.log("what");
+            $("#main").html(result);
+            
+        }
+    })
+});
+        </script>
+        </div>
+    </body>
+</html>
