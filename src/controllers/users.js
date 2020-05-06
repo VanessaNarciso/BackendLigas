@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Empresa = require('../models/empresa')
 
 // GET USERS ya no esta en routes.js ya que un usuario no debería tener acceso
 // a la informacion de TODOS los usuarios a menos que sea administrador
@@ -54,7 +55,10 @@ const login = function(req, res) {
   console.log(req.body)
   User.findByCredentials(req.body.correo, req.body.password).then(function(user){
     user.generateToken().then(function(token){
-      return res.send({user, token})
+      const empresa = Empresa.getCompany(user.partOf)
+      Empresa.getCompany(req.body.id).then(function(company){
+        return res.send({user, token, company})
+      })      
     }).catch(function(error){
       return res.status(401).send({ error: error })
     })
