@@ -1,4 +1,4 @@
-const User = require('../models/empresa')
+const Empresa = require('../models/empresa')
 
 
 const getComps = function(req, res) {
