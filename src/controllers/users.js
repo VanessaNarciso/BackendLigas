@@ -56,7 +56,7 @@ const login = function(req, res) {
   User.findByCredentials(req.body.correo, req.body.password).then(function(user){
     user.generateToken().then(function(token){
       console.log("Empresa del user: ",user.partOf)
-      Empresa.getCompany(user.partOf).then(function(company){
+      Empresa.getCompany2(user.partOf).then(function(company){
         return res.send({user, token, company})
       }).catch(function(error) {
         return res.status(401).send({ error: "Incorrect Id" })
