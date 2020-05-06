@@ -15,13 +15,13 @@ app.use(express.json())
 app.set('view engine','hbs');
 
 
-app.get('/template1/',(req,res) =>{
+/*app.get('/template1/',(req,res) =>{
   if(!req.query.exists){
     res.render('template1');
   }else{
     res.render('index',{titulo: req.query.titulo,imgSrc: req.query.imgUrl,footer: req.query.footer})
   }
-});
+});*/
 
 app.use(cors())
 app.use(express.json()) // parsea a json
