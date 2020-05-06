@@ -10,10 +10,10 @@ const getComps = function(req, res) {
 }
 
 const getComp = function(req, res) {
-  const _id = req.body.id;
-  Empresa.findOne({_id}).then(function(company) {      
+  const idC = req.body.id;
+  Empresa.findOne({idC}).then(function(company) {      
     if( !company ) {
-      res.status(404).send(error)
+      res.status(404).send({ message: "Empresa no encontrada" })
     }
     res.send(company)
   }).catch( function(error) {
