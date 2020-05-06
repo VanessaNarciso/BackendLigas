@@ -11,6 +11,14 @@ const getUsers = function(req, res) {
 }
 
 const getUser = function(req, res) {
+  User.find({}).then(function(users) {
+    res.send(users)
+  }).catch(function(error){
+    res.status(500).send(error)
+  })
+}
+
+/*const getUser = function(req, res) {
   // cualquier usuario no deberia ser capaz de ver la info de otro usuario
   // a menos que sea un admin. Aqui yo ya no admitire que me pasen el :id como
   // parametro. Solo usare el id de la request-> req.user._id
@@ -20,11 +28,8 @@ const getUser = function(req, res) {
   // solo nos faltaria agregar los todos del Schema Todo
   // y eso se usa con lo siguiente:
   // req.user.populate() Donde
-
-
 //Metodo para despues de hacer el login buscar todas los datos para mostrar en main 
-
-  /*User.findById( req.user._id ).populate('todos').exec(function(error, user) {
+User.findById( req.user._id ).populate('todos').exec(function(error, user) {
   // req.user.populate('todos').exec(function(error, user) {  
     // user ya tiene la info de req.user y req.user.todos
     return res.send(user)
@@ -36,6 +41,7 @@ const getUser = function(req, res) {
 
 
 const createUser = function(req, res){
+  console.log("Entra a create")
   const user = new User(req.body)
   user.save().then(function() {
     return res.send(user)
@@ -46,7 +52,7 @@ const createUser = function(req, res){
 
 const login = function(req, res) {
   console.log(req.body)
-  User.findByCredentials(req.body.email, req.body.password).then(function(user){
+  User.findByCredentials(req.body.correo, req.body.password).then(function(user){
     user.generateToken().then(function(token){
       return res.send({user, token})
     }).catch(function(error){
@@ -75,7 +81,7 @@ const updateUser = function(req, res) {
   // const _id = req.params.id
   const _id = req.user._id
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['name', 'age', 'password', 'email']
+  const allowedUpdates = ['nombre','correo','password']
   // revisa que los updates enviados sean permitidos, que no envie una key que no permitimos
   const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
 
@@ -112,7 +118,7 @@ const deleteUser = function(req, res) {
 
 module.exports = {
   getUsers : getUsers,
-  getUser: getUser,
+  //getUser: getUser,
   login: login,
   logout: logout,
   createUser : createUser,
