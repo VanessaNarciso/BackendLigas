@@ -9,6 +9,18 @@ const getComps = function(req, res) {
   })
 }
 
+const getComp = function(req, res) {
+  const _id = req.body.id;
+  Empresa.findOne({_id}).then(function(company) {      
+    if( !company ) {
+      return reject('Company does not exist')
+    }
+    return resolve(company)
+  }).catch( function(error) {
+    return reject('Wrong password!')
+  })
+}
+
 
 const createComp = function(req, res){
   const empresa = new Empresa(req.body)
@@ -22,5 +34,6 @@ const createComp = function(req, res){
 
 module.exports = {
   getComps : getComps,
+  getComp : getComp,
   createComp : createComp,
 }

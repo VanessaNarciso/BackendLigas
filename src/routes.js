@@ -15,6 +15,7 @@ router.patch('/users', auth, users.updateUser) //update user
 router.delete('/users', auth, users.deleteUser) //Delete user 
 
 router.get('/getCompanies', empresas.getComps)
+router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
 //
 /*

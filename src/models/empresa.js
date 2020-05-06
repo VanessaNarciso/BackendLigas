@@ -39,16 +39,6 @@ empresaSchema.virtual('user',{
 })
 
 
-//Register Company
-empresaSchema.statics.registerCompany = function(company) {
-  return new Promise( function(resolve, reject) {
-    Empresa.create(company).then(function(company) {      
-      return company      
-    }).catch( function(error) {
-      return reject('Wrong password!')
-    })
-  })
-}
 
 
 const Empresa = mongoose.model('Empresa', empresaSchema)
