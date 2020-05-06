@@ -41,8 +41,9 @@ empresaSchema.virtual('user',{
 
 //Get company by id
 empresaSchema.statics.getCompany = function(id) {
+  const o_id = new ObjectId(id);  
   return new Promise( function(resolve, reject) {
-    Empresa.findOne({id}).then(function(company) {      
+    Empresa.findOne({_id:o_id}).then(function(company) {      
       if( !company ) {
         return reject('Company does not exist')
       }
