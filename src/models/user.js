@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
   numeroTelefono: {
     type: String
   },
+  partOf:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Empresa'
+  },
   tokens: [{
     token: {
       type: String,
@@ -52,22 +57,12 @@ userSchema.virtual('ligascortas',{
   foreignField: 'createdBy'
 })
 
-userSchema.methods.toJSON = function() {
-  const user = this
-  const userObject = user.toObject()
-
-  delete userObject.password
-  delete userObject.tokens
-
-  return userObject
-}
-
 
 //Encontrar usuario por credenciales 
 
-userSchema.statics.findByCredentials = function(correo, password) {
+userSchema.statics.findByCredentials = function(email, password) {
   return new Promise( function(resolve, reject) {
-    User.findOne({ correo }).then(function(user) {
+    User.findOne({ email }).then(function(user) {
       if( !user ) {
         return reject('User does not exist')
       }
@@ -98,7 +93,7 @@ userSchema.methods.generateToken = function() {
   })
 }
 
-//Encriptar password 
+//Encriptar password
 userSchema.pre('save', function(next) {
   const user = this
   if( user.isModified('password') ) {

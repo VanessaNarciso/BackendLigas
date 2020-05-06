@@ -8,12 +8,12 @@ const ligasSchema = new mongoose.Schema({
 	codigoLiga:{
 		type: String
 	}, 
-	ligaCorta {
-		type: String
+	ligaCorta :{
+		type: String,
 		required: true
 	},
-	ligaOriginal{
-		type: String
+	ligaOriginal:{
+		type: String,
 		required: true
 	},
 	fechaCreacion:{
@@ -21,7 +21,7 @@ const ligasSchema = new mongoose.Schema({
   },
   fechaModificacion:{
     	type:Date 
-  }
+  },
   createdBy:{
     type: mongoose.Schema.Types.ObjectId,
     required: true,

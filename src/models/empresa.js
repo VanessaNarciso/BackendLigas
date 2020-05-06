@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 
 const empresaSchema = mongoose.Schema({
   nombre: {
-    type: String
+    type: String,
     required: true
   },
   razon_social: {
-    type: String
+    type: String,
     required: true
   },
   domicilio: {
@@ -28,12 +28,24 @@ const empresaSchema = mongoose.Schema({
   }
 })
 
+//Relación con user
 empresaSchema.virtual('user',{
-  ref: 'usuario'
+  ref: 'usuario',
   localField: '_id', 
   foreignField: 'partOf'
 })
 
+
+//Register Company
+empresaSchema.statics.registerCompany = function(company) {
+  return new Promise( function(resolve, reject) {
+    Empresa.create(company).then(function(company) {      
+      return company      
+    }).catch(error =>{
+      throw Error(error);
+    });
+  })
+}
 
 
 const Empresa = mongoose.model('Empresa', empresaSchema)

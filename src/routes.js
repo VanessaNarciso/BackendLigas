@@ -2,6 +2,7 @@ const express = require ('express')
 const router = express.Router()
 
 const users = require('./controllers/users.js')
+const empresas = require('./controllers/empresas.js')
 const auth = require('./middleware/auth')
 
 
@@ -13,6 +14,8 @@ router.post('/users', users.createUser)  // signup
 router.patch('/users', auth, users.updateUser) //update user
 router.delete('/users', auth, users.deleteUser) //Delete user 
 
+router.post('/getCompanies', empresas.getComps)
+router.post('/createCompany', empresas.createComp)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)
