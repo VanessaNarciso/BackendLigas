@@ -13,11 +13,11 @@ const getComp = function(req, res) {
   const _id = req.body.id;
   Empresa.findOne({_id}).then(function(company) {      
     if( !company ) {
-      return reject('Company does not exist')
+      res.status(404).send(error)
     }
-    return resolve(company)
+    res.send(company)
   }).catch( function(error) {
-    return reject('Wrong password!')
+    res.status(500).send(error)
   })
 }
 
