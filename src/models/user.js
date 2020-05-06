@@ -34,7 +34,12 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
+  }],
+  partOf:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Empresa'
+  }
 },{
   toObject: {
     virtuals: true
