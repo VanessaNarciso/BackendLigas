@@ -58,7 +58,9 @@ const login = function(req, res) {
       const empresa = Empresa.getCompany(user.partOf)
       Empresa.getCompany(req.body.id).then(function(company){
         return res.send({user, token, company})
-      })      
+      }).catch(function(error) {
+        return res.status(401).send({ error: "Incorrect Id" })
+      })
     }).catch(function(error){
       return res.status(401).send({ error: error })
     })
