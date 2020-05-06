@@ -45,6 +45,7 @@ User.findById( req.user._id ).populate('todos').exec(function(error, user) {
 
 
 const createUser = function(req, res){
+  console.log("Entra a create")
   const user = new User(req.body)
   user.save().then(function() {
     return res.send(user)

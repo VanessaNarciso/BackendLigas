@@ -13,6 +13,7 @@ router.post('/users', users.createUser)  // signup
 router.patch('/users', auth, users.updateUser) //update user
 router.delete('/users', auth, users.deleteUser) //Delete user 
 
+//
 /*
 router.get('/todos/:id', auth, todos.getTodo)
 router.get('/todos', auth, todos.getTodos)
@@ -22,7 +23,7 @@ router.delete('/todos/:id', auth, todos.deleteTodo)*/
 
 router.get('*', function(req, res) {
   res.send({
-    error: 'Esta ruta no existe usa /users /login'
+    error: 'Server Running /users /Login'
   })
 })
 
