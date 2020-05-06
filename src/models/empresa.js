@@ -1,6 +1,9 @@
 const validator = require('validator')
 const mongoose = require('mongoose')
 
+var secret = process.env.SECRET || require('../config.js').secret
+
+
 const empresaSchema = mongoose.Schema({
   nombre: {
     type: String,
@@ -41,9 +44,9 @@ empresaSchema.statics.registerCompany = function(company) {
   return new Promise( function(resolve, reject) {
     Empresa.create(company).then(function(company) {      
       return company      
-    }).catch(error =>{
-      throw Error(error);
-    });
+    }).catch( function(error) {
+      return reject('Wrong password!')
+    })
   })
 }
 
