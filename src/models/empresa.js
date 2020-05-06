@@ -60,9 +60,6 @@ empresaSchema.statics.getCompany = function(id) {
 
 empresaSchema.statics.getCompany2 = function(id) {
   return new Promise( function(resolve, reject) {
-    if(id.length!=24){
-      return reject('Incorrect id')
-    }
     Empresa.findOne({_id:id}).then(function(company) {      
       if( !company ) {
         return reject('Company does not exist')
