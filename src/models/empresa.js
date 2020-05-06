@@ -42,11 +42,11 @@ empresaSchema.virtual('user',{
 
 //Get company by id
 empresaSchema.statics.getCompany = function(id) {
-  if(id.length!=24){
-    return reject('Incorrect id')
-  }
-  const o_id = new ObjectId(id);  
   return new Promise( function(resolve, reject) {
+    if(id.length!=24){
+      return reject('Incorrect id')
+    }
+    const o_id = new ObjectId(id)
     Empresa.findOne({_id:o_id}).then(function(company) {      
       if( !company ) {
         return reject('Company does not exist')
