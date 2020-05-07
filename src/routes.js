@@ -3,6 +3,7 @@ const router = express.Router()
 
 const users = require('./controllers/users.js')
 const empresas = require('./controllers/empresas.js')
+const ligas = require('./controllers/ligasCortas.js')
 const auth = require('./middleware/auth')
 
 
@@ -17,6 +18,8 @@ router.delete('/users', auth, users.deleteUser) //Delete user
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
+
+route.post('/createLiga', ligas.createLiga)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)

@@ -6,11 +6,13 @@ const ligasSchema = new mongoose.Schema({
 		type: String
 	}, 
 	codigoLiga:{
-		type: String
+		type: String,
+		required: true
 	}, 
 	ligaCorta :{
 		type: String,
-		required: true
+		required: true,
+		unique: true,
 	},
 	ligaOriginal:{
 		type: String,
@@ -22,6 +24,11 @@ const ligasSchema = new mongoose.Schema({
   fechaModificacion:{
     	type:Date 
   },
+  empresaLiga:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'Empresa'
+  },
   createdBy:{
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -31,5 +38,4 @@ const ligasSchema = new mongoose.Schema({
 
 
 const Ligas = mongoose.model('Ligas', ligasSchema)
-
 module.exports = Ligas

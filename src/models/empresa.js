@@ -39,6 +39,13 @@ empresaSchema.virtual('user',{
   foreignField: 'partOf'
 })
 
+//Relación con ligas
+userSchema.virtual('ligascortas',{
+  ref: 'liga',
+  localField: '_id', 
+  foreignField: 'empresaLiga'
+})
+
 
 //Get company by id
 empresaSchema.statics.getCompany = function(id) {
