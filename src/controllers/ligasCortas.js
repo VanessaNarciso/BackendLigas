@@ -24,15 +24,15 @@ const getLigasEmpresa = function(req, res) {
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
     const liga = req.params.liga
-    console.log('ir a :',liga)
+    console.log("Ir a: ",liga)
     Liga.getLiga(liga).then(function(liga){
         VisitaLiga.registerVisit(req, liga._id).then(function(company){
             return res.redirect(liga.ligaOriginal)
         }).catch(function(error) {
-            return res.status(401).send({ error: error })
+            return res.status(401).send({ error: error, msg:'No se pudo registrar visita' })
         })        
     }).catch(function(error) {
-        return res.status(401).send({ error: error })
+        return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
     })
 }
 
