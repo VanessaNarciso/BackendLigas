@@ -1,4 +1,5 @@
 const Liga = require('../models/ligascortas')
+const VisitaLiga = require('../models/visitaLiga')
 
 
 const createLiga = function(req, res){
@@ -11,10 +12,14 @@ const createLiga = function(req, res){
 }
 
 const irLiga = function(req, res){
-    console.log(req.params)
+    //Necesitamos enviar el req y el id de la liga que estamos checando
     const liga = req.params.liga
-    Liga.getLiga(liga).then(function(urlorg){
-        return res.redirect(urlorg)
+    Liga.getLiga(liga).then(function(liga){
+        VisitaLiga.registerVisit(req, liga._id).then(function(company){
+            return res.redirect(liga.ligaOriginal)
+        }).catch(function(error) {
+            return res.status(401).send({ error: error })
+        })        
     }).catch(function(error) {
         return res.status(401).send({ error: error })
     })

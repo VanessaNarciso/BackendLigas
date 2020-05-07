@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const Handlebar = require("handlebars");
+const useragent = require('express-useragent');
+
 
 require('./db/db.js')
 var cors = require('cors');
@@ -11,6 +13,7 @@ const User = require('./models/user.js')
 const port = process.env.PORT || 3000
 
 app.use(express.json())
+app.use(useragent.express());
 
 app.set('view engine','hbs');
 
