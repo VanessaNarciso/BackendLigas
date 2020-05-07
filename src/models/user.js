@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
   numeroTelefono: {
     type: String
   },
+  tipo:{
+    type: Number,
+    enum: [0, 1, 2],
+    required: true
+  },
   tokens: [{
     token: {
       type: String,
