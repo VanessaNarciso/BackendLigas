@@ -40,7 +40,7 @@ empresaSchema.virtual('user',{
 })
 
 //Relación con ligas
-userSchema.virtual('ligascortas',{
+empresaSchema.virtual('ligascortas',{
   ref: 'liga',
   localField: '_id', 
   foreignField: 'empresaLiga'
