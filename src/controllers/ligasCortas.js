@@ -11,6 +11,14 @@ const createLiga = function(req, res){
     })
 }
 
+const getLigasEmpresa = function(req, res) {
+    Liga.find({empresaLiga: req.body.idE}).then(function(misligas) {
+      res.send(misligas)
+    }).catch(function(error){
+      res.status(404).send(error)
+    })
+  }
+
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
     const liga = req.params.liga
@@ -27,5 +35,6 @@ const irLiga = function(req, res){
 
   module.exports = {
     createLiga : createLiga,
-    irLiga : irLiga
+    irLiga : irLiga,
+    getLigasEmpresa : getLigasEmpresa
   }
