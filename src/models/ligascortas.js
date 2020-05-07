@@ -44,7 +44,7 @@ ligasSchema.statics.getLiga = function(codeLiga) {
 		if( !liga ) {
 		  return reject('Url does not exist')
 		}
-		return resolve(liga.ligaOriginal)
+		return resolve(liga)
 	  }).catch( function(error) {
 		return reject('Error!')
 	  })
