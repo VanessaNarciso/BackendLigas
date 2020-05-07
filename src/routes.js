@@ -19,7 +19,7 @@ router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
 
-route.post('/createLiga', ligas.createLiga)
+router.post('/createLiga', ligas.createLiga)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)
