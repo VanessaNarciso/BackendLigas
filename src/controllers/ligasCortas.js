@@ -11,8 +11,9 @@ const createLiga = function(req, res){
 }
 
 const irLiga = function(req, res){
-    const liga = new Liga(req.params)
-    Liga.getLiga(req.params).then(function(urlorg){
+    console.log(req.params)
+    const liga = req.params.liga
+    Liga.getLiga(liga).then(function(urlorg){
         return res.redirect(urlorg)
     }).catch(function(error) {
         return res.status(401).send({ error: error })
