@@ -23,8 +23,8 @@ const getLigasEmpresa = function(req, res) {
 
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
-    const liga = req.params.liga
-    console.log("Ir a: ",liga)
+    const liga = req.params.liga;
+    console.log("Ir a: ",liga);
     Liga.getLiga(liga).then(function(liga){
         VisitaLiga.registerVisit(req, liga._id).then(function(company){
             return res.redirect(liga.ligaOriginal)
