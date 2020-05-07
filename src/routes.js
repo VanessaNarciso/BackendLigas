@@ -19,6 +19,7 @@ router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
 
+router.get('/liga/:liga', empresas.irLiga)
 router.post('/createLiga', ligas.createLiga)
 //
 /*

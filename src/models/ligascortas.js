@@ -36,6 +36,18 @@ const ligasSchema = new mongoose.Schema({
   }
 }) 
 
+ligasSchema.statics.getLiga = function(codeLiga) {
+	return new Promise( function(resolve, reject) {
+	  Ligas.findOne({codigoLiga:codeLiga}).then(function(liga) {      
+		if( !liga ) {
+		  return reject('Url does not exist')
+		}
+		return resolve(liga.ligaOriginal)
+	  }).catch( function(error) {
+		return reject('Error!')
+	  })
+	})
+  }
 
 const Ligas = mongoose.model('Ligas', ligasSchema)
 module.exports = Ligas

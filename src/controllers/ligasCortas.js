@@ -10,8 +10,16 @@ const createLiga = function(req, res){
     })
 }
 
-
+const irLiga = function(req, res){
+    const liga = new Liga(req.params)
+    Liga.getLiga(req.params).then(function(urlorg){
+        return res.redirect(urlorg)
+    }).catch(function(error) {
+        return res.status(401).send({ error: error })
+    })
+}
 
   module.exports = {
-    createLiga : createLiga
+    createLiga : createLiga,
+    irLiga : irLiga
   }
