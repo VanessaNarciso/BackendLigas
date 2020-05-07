@@ -7,7 +7,8 @@ const ligasSchema = new mongoose.Schema({
 	}, 
 	codigoLiga:{
 		type: String,
-		required: true
+		required: true,
+		unique: true,
 	}, 
 	ligaCorta :{
 		type: String,
