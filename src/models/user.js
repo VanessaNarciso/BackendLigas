@@ -123,6 +123,16 @@ userSchema.pre('save', function(next) {
   }
 })
 
+userSchema.statics.getUsersCompany = function(idComp) {
+  return new Promise( function(resolve, reject) {
+    User.find({partOf:idComp}).then(function(users) {            
+      return resolve(users)
+    }).catch( function(error) {
+      return reject('Error!')
+    })
+  })
+}
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User

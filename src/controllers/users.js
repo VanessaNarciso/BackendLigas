@@ -11,6 +11,16 @@ const getUsers = function(req, res) {
   })
 }
 
+///////////////////////////////////////////////////////
+const getUsersCompany = function(req, res) {
+  const idCompany = req.params.id
+  User.find({partOf}).then(function(users) {
+    res.send(users)
+  }).catch(function(error){
+    res.status(500).send(error)
+  })
+}
+
 const getUser = function(req, res) {
   User.find({}).then(function(users) {
     res.send(users)
