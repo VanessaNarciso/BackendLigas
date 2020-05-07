@@ -37,6 +37,7 @@ const ligasSchema = new mongoose.Schema({
 }) 
 
 ligasSchema.statics.getLiga = function(codeLiga) {
+	console.log("Busco a : ",codeLiga)
 	return new Promise( function(resolve, reject) {
 	  Ligas.findOne({codigoLiga:codeLiga}).then(function(liga) {      
 		if( !liga ) {
