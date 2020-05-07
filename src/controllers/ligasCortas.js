@@ -12,8 +12,9 @@ const createLiga = function(req, res){
 }
 
 const getLigasEmpresa = function(req, res) {
-    console.log(req.body.idE)
-    Liga.find({empresaLiga: req.body.idE}).then(function(misligas) {
+    const empresa = req.params.empresa
+    console.log(req.params.empresa)
+    Liga.find({empresaLiga: empresa}).then(function(misligas) {
       res.send(misligas)
     }).catch(function(error){
       res.status(404).send(error)
