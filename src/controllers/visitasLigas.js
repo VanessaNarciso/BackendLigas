@@ -14,8 +14,8 @@ const getVisitasLiga = function(req, res) {
 const getContadorLiga = function(req, res) {
   const liga = req.params.liga
   console.log(req.params.liga)
-  VisitaLiga.countDocuments({ligaId: liga}).then(function(visitas) {
-    res.send(visitas)
+  VisitaLiga.countDocuments({ligaId: liga}).then(function(num) {
+    res.send({'visitas' : num})
   }).catch(function(error){
     res.status(404).send(error)
   })
