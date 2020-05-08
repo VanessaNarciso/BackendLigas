@@ -3,7 +3,10 @@ const mongoose = require('mongoose')
 const useragent = require('express-useragent');
 const express = require('express')
 const app = express()
+const expressip = require('express-ip');
 app.use(useragent.express());
+app.use(expressip().getIpInfoMiddleware);
+
 
 
 var secret = process.env.SECRET || require('../config.js').secret
@@ -35,11 +38,12 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
     return new Promise( function(resolve, reject) {
         //Necesitamos el id de la liga que estamos visitando, que llega en idLiga
         //Obtener los datos del req y guardar en VisitaLiga
+        const ipInfo = req.ipInfo;
         const data = {
             ligaId : idLiga,
             navegador : req.useragent.browser,
             ip : req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-            geolocalizacion : 'undefined',
+            geolocalizacion : ipInfo.city+', '+ipInfo.country,
             fecha : new Date()
         }
         const visita = new VisitaLiga(data)
