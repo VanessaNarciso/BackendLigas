@@ -3,9 +3,8 @@ const mongoose = require('mongoose')
 const useragent = require('express-useragent');
 const express = require('express')
 const app = express()
-const expressip = require('express-ip');
 app.use(useragent.express());
-app.use(expressip().getIpInfoMiddleware);
+var request = require('request');
 
 
 
@@ -38,13 +37,20 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
     return new Promise( function(resolve, reject) {
         //Necesitamos el id de la liga que estamos visitando, que llega en idLiga
         //Obtener los datos del req y guardar en VisitaLiga
-        const ipInfo = req.ipInfo
-        console.log(ipInfo)
+        const ipReq = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        var geo;
+        request('https://freegeoip.app/json/'+ipReq, function (error, response, body) {
+          console.log('error:', error); // Print the error if one occurred and handle it
+          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          geo = body.country_name;
+        });
+        console.log("Pais es :");
+        console.log(geo);
         const data = {
             ligaId : idLiga,
             navegador : req.useragent.browser,
-            ip : req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-            geolocalizacion : ipInfo.city+', '+ipInfo.country,
+            ip : ipReq,
+            geolocalizacion : geo,
             fecha : new Date()
         }
         const visita = new VisitaLiga(data)
