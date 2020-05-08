@@ -38,7 +38,7 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
         const data = {
             ligaId : idLiga,
             navegador : req.useragent.browser,
-            ip : req.ip,
+            ip : req.headers['x-forwarded-for'] || req.connection.remoteAddress,
             geolocalizacion : 'undefined',
             fecha : new Date()
         }
