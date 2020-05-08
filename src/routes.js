@@ -4,6 +4,7 @@ const router = express.Router()
 const users = require('./controllers/users.js')
 const empresas = require('./controllers/empresas.js')
 const ligas = require('./controllers/ligasCortas.js')
+const visitasLigas = require('./controllers/visitasLigas.js')
 const auth = require('./middleware/auth')
 
 
@@ -22,6 +23,9 @@ router.post('/createCompany', empresas.createComp)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/liga/:liga', ligas.irLiga)
 router.post('/createLiga', ligas.createLiga)
+
+router.get('visitas/:liga', visitasLigas.getVisitasLiga)
+router.get('numvisitas/:liga', visitasLigas.getContadorLiga)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)

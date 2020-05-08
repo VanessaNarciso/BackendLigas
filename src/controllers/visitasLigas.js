@@ -4,6 +4,16 @@ const VisitaLiga = require('../models/visitaLiga')
 const getVisitasLiga = function(req, res) {
   const liga = req.params.liga
   console.log(req.params.liga)
+  VisitaLiga.find({ligaId: liga}).then(function(visitas) {
+    res.send(visitas)
+  }).catch(function(error){
+    res.status(404).send(error)
+  })
+}
+
+const getContadorLiga = function(req, res) {
+  const liga = req.params.liga
+  console.log(req.params.liga)
   VisitaLiga.countDocuments({ligaId: liga}).then(function(visitas) {
     res.send(visitas)
   }).catch(function(error){
@@ -13,7 +23,7 @@ const getVisitasLiga = function(req, res) {
 
 
 
-  module.exports = {
-    visitLiga : visitLiga,
-    getVisitasLiga : getVisitasLiga
+  module.exports = {    
+    getVisitasLiga : getVisitasLiga,
+    getContadorLiga : getContadorLiga,
   }
