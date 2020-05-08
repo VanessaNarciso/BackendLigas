@@ -42,6 +42,7 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
         request('https://freegeoip.app/json/'+ipReq, function (error, response, body) {
           console.log('error:', error); // Print the error if one occurred and handle it
           console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+          console.log(body);
           geo = body.country_name;
         });
         console.log("Pais es :");
