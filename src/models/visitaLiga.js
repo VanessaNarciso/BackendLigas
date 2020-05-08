@@ -38,7 +38,8 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
     return new Promise( function(resolve, reject) {
         //Necesitamos el id de la liga que estamos visitando, que llega en idLiga
         //Obtener los datos del req y guardar en VisitaLiga
-        const ipInfo = req.ipInfo;
+        const ipInfo = req.ipInfo
+        console.log(ipInfo)
         const data = {
             ligaId : idLiga,
             navegador : req.useragent.browser,
