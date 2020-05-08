@@ -24,8 +24,8 @@ router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/liga/:liga', ligas.irLiga)
 router.post('/createLiga', ligas.createLiga)
 
-router.get('visitas/:liga', visitasLigas.getVisitasLiga)
-router.get('numvisitas/:liga', visitasLigas.getContadorLiga)
+router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
+router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)
