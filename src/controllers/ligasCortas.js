@@ -21,6 +21,25 @@ const getLigasEmpresa = function(req, res) {
     })
   }
 
+const getVisitasLigasEmpresa = function(req, res) {
+    const empresa = req.params.empresa
+    console.log(req.params.empresa)
+    Liga.find({empresaLiga: empresa}).then(function(misligas) {
+      var visitasTotales = 0;
+      for(var j=0; j<misligas.length; j++){
+        const liga = misligas[j]._id;
+        VisitaLiga.countDocuments({ligaId: liga}).then(function(num) {
+            visitasTotales = visitasTotales+1;
+        }).catch(function(error){
+            res.status(404).send(error)
+        })
+      }
+      res.send({'visitasTotales' : visitasTotales})
+    }).catch(function(error){
+      res.status(404).send(error)
+    })
+  }
+
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
     const ligaa = req.params.liga;
@@ -39,5 +58,6 @@ const irLiga = function(req, res){
   module.exports = {
     createLiga : createLiga,
     irLiga : irLiga,
-    getLigasEmpresa : getLigasEmpresa
+    getLigasEmpresa : getLigasEmpresa,
+    getVisitasLigasEmpresa : getVisitasLigasEmpresa
   }
