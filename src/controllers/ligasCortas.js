@@ -1,5 +1,6 @@
 const Liga = require('../models/ligascortas')
 const VisitaLiga = require('../models/visitaLiga')
+var ObjectId = require('mongodb').ObjectId;
 
 
 const createLiga = function(req, res){
@@ -71,28 +72,31 @@ const getVisitasLigasEmpresa = function(req, res) {
 
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
-    console.log("Empresa a buscar:")
-    console.log(empresa)
     Liga.aggregate([
         {
-            $match: {
-                empresaLiga : empresa
+            $match:{
+                "empresaLiga" : ObjectId(empresa)
+            }
+        },
+        {
+            $lookup:{
+                "localField" : "_id",
+                "from" : "visitasligas",
+                "foreignField" : "ligaId",
+                "as" : "visitas"
             }
         },
         {
             $group:{
                 _id : empresa,
-                "LigasEmpresa" : {
-                    "$sum" : 1
+                "VisitasEmpresa" : {
+                    "$push" : "$visitas"
                 }
             }
         }
     ], (aggregateError, aggregateResult)=>{
-        if(!aggregateError){
-            console.log("Resultado aggregate:")
-            console.log(aggregateResult)
+        if(!aggregateError)
             return res.send(aggregateResult)
-        }
         else
             return res.status(404).send(aggregateError)        
     })
