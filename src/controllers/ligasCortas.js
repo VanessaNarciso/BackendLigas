@@ -81,7 +81,7 @@ const getVisitasLigasEmpresa = function(req, res) {
         {
             $lookup:{
                 "localField" : "_id",
-                "from" : "visitasligas",
+                "from" : "visitaligas",
                 "foreignField" : "ligaId",
                 "as" : "visitas"
             }
@@ -91,7 +91,8 @@ const getVisitasLigasEmpresa = function(req, res) {
                 _id : empresa,
                 "VisitasEmpresa" : {
                     "$push" : "$visitas"
-                }
+                },
+                "LigasEmpresa" : {"$sum" : 1}
             }
         }
     ], (aggregateError, aggregateResult)=>{
