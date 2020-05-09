@@ -46,25 +46,37 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
           console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
           console.log(body);
           geo = body.country_name;
+          console.log("Pais es :");
+          console.log(geo);
+          const data = {
+              ligaId : idLiga,
+              navegador : req.useragent.browser,
+              ip : ipReq,
+              geolocalizacion : geo,
+              fecha : new Date()
+          }
+          const visita = new VisitaLiga(data)
+          visita.save().then(function(visita) {
+            return resolve(visita)
+          }).catch( function(error) {
+            return reject('Error creando visita')
+          })        
           })
           .catch(function (err){
-            
-          });
-        console.log("Pais es :");
-        console.log(geo);
-        const data = {
-            ligaId : idLiga,
-            navegador : req.useragent.browser,
-            ip : ipReq,
-            geolocalizacion : geo,
-            fecha : new Date()
-        }
-        const visita = new VisitaLiga(data)
-      visita.save().then(function(visita) {
-        return resolve(visita)
-      }).catch( function(error) {
-        return reject('Error creando visita')
-      })
+            const data = {
+              ligaId : idLiga,
+              navegador : req.useragent.browser,
+              ip : ipReq,
+              geolocalizacion : 'undefined',
+              fecha : new Date()
+            }
+            const visita = new VisitaLiga(data)
+            visita.save().then(function(visita) {
+              return resolve(visita)
+            }).catch( function(error) {
+              return reject('Error creando visita')
+            }) 
+          });        
     })
   }
 
