@@ -19,8 +19,8 @@ const getLigasEmpresa = function(req, res) {
     }).catch(function(error){
       res.status(404).send(error)
     })
-  }
-
+}
+/*
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
     console.log(req.params.empresa)
@@ -44,7 +44,20 @@ const getVisitasLigasEmpresa = function(req, res) {
     }).catch(function(error){
       res.status(404).send(error)
     })
-  }
+}*/
+const getVisitasLigasEmpresa = function(req, res) {
+    const empresa = req.params.empresa
+    Liga.ligasEmpresa(empresa).then(function(ligas){
+        VisitaLiga.cuentaTotalLigas(ligas).then(function(total){
+            return res.send(total)
+        }).catch(function(error){
+            return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
+        })
+    }).catch(function(error){
+        return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
+    })
+}
+
 
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando

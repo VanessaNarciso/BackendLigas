@@ -76,7 +76,33 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
             }) 
           });        
     })
-  }
+}
+
+visitaLigaSchema.statics.visitasLiga = function(idLiga){
+	console.log("Cuento visitas de : ",idLiga);
+	  return new Promise( function(resolve, reject) {
+      VisitaLiga.countDocuments({ligaId: liga}).then(function(num) {		  	 
+		    return resolve({'visitas' : num})
+		  }).catch( function(error) {
+		    return reject(error)
+		  })
+	  })
+}
+
+visitaLigaSchema.statics.cuentaTotalLigas = function(ligas){
+	console.log("Sumo visitas de : ",ligas);
+	  return new Promise( function(resolve, reject) {
+      var total = 0;
+      for(var i=0; i<ligas.lenght; i++){      
+        VisitaLiga.countDocuments({ligaId: ligas[i]._id}).then(function(num) {		  	 
+          total = total+num
+        }).catch( function(error) {
+          return reject(error)
+        })
+      }
+      return resolve({'totalVisitas':total})
+	  })
+}
 
 const VisitaLiga = mongoose.model('VisitaLiga', visitaLigaSchema)
 module.exports = VisitaLiga

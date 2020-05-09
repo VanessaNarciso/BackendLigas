@@ -50,7 +50,18 @@ ligasSchema.statics.getLiga = function(codeLiga) {
 		return reject('Error!')
 	  })
 	})
-  }
+}
+
+ligasSchema.statics.ligasEmpresa = function(idEmpresa){
+	console.log("Busco ligas de : ",idEmpresa);
+	return new Promise( function(resolve, reject) {
+		Ligas.find({empresaLiga:idEmpresa}).then(function(ligas) {		  	 
+			return resolve(ligas)
+		}).catch( function(error) {
+			return reject('Error!')
+		})
+	})
+}
 
 const Ligas = mongoose.model('Ligas', ligasSchema)
 module.exports = Ligas
