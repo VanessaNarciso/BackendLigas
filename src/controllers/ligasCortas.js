@@ -95,9 +95,9 @@ const getVisitasLigasEmpresa = function(req, res) {
         }
     ], (aggregateError, aggregateResult)=>{
         if(!aggregateError)
-            return res(aggregateResult)
+            return res.send(aggregateResult)
         else
-        return res(aggregateError)
+            return res.status(404).send(aggregateError)        
     })
 }
 
