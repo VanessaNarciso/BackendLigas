@@ -89,7 +89,7 @@ const getVisitasLigasEmpresa = function(req, res) {
             $group:{
                 _id : empresa,
                 "VisitasEmpresa" : {
-                    $push : "$visitas"
+                    "$push" : "$visitas"
                 }
             }
         }
