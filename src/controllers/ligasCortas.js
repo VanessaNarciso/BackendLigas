@@ -75,7 +75,9 @@ const getVisitasLigasEmpresa = function(req, res) {
     console.log(empresa)
     Liga.aggregate([
         {
-            $match: empresa            
+            $match: {
+                empresaLiga : empresa
+            }
         },
         {
             $group:{
