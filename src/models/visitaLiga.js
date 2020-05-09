@@ -5,6 +5,7 @@ const express = require('express')
 const app = express()
 app.use(useragent.express());
 var request = require('request');
+var rp = require('request-promise');
 
 
 
@@ -39,12 +40,16 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
         //Obtener los datos del req y guardar en VisitaLiga
         const ipReq = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         var geo;
-        request('https://freegeoip.app/json/'+ipReq, function (error, response, body) {
+        rp('https://freegeoip.app/json/'+ipReq)
+          .then (function (error, response, body){
           console.log('error:', error); // Print the error if one occurred and handle it
           console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
           console.log(body);
           geo = body.country_name;
-        });
+          })
+          .catch(function (err){
+            
+          });
         console.log("Pais es :");
         console.log(geo);
         const data = {
@@ -55,7 +60,7 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
             fecha : new Date()
         }
         const visita = new VisitaLiga(data)
-        visita.save().then(function(visita) {
+      visita.save().then(function(visita) {
         return resolve(visita)
       }).catch( function(error) {
         return reject('Error creando visita')
