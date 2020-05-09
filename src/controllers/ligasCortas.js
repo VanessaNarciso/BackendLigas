@@ -20,6 +20,16 @@ const getLigasEmpresa = function(req, res) {
       res.status(404).send(error)
     })
 }
+
+const getLiga = function(req, res) {
+    const idLiga = req.params.idLiga
+    console.log(req.params.idLiga)
+    Liga.findOne({_id: idLiga}).then(function(liga) {
+      res.send(liga)
+    }).catch(function(error){
+      res.status(404).send(error)
+    })
+}
 /*
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
@@ -78,5 +88,6 @@ const irLiga = function(req, res){
     createLiga : createLiga,
     irLiga : irLiga,
     getLigasEmpresa : getLigasEmpresa,
-    getVisitasLigasEmpresa : getVisitasLigasEmpresa
+    getVisitasLigasEmpresa : getVisitasLigasEmpresa,
+    getLiga : getLiga
   }

@@ -23,6 +23,7 @@ router.post('/createCompany', empresas.createComp)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/ligasVisitas/:empresa', ligas.getVisitasLigasEmpresa)
 router.get('/liga/:liga', ligas.irLiga)
+router.get('/getLiga/:idLiga', ligas.getLiga)
 router.post('/createLiga', ligas.createLiga)
 
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
