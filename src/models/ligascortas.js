@@ -38,8 +38,8 @@ const ligasSchema = new mongoose.Schema({
 }) 
 
 //Relación con visitaLiga
-ligasSchema.virtual('visitasLigas',{
-	ref: 'visitaLiga',
+ligasSchema.virtual('visitaligas',{
+	ref: 'visitaligas',
 	localField: '_id', 
 	foreignField: 'ligaId'
   })

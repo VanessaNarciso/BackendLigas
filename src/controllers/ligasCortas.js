@@ -80,16 +80,16 @@ const getVisitasLigasEmpresa = function(req, res) {
         {
             $lookup:{
                 "localField" : "_id",
-                "from" : "visitasLigas",
+                "from" : "visitasligas",
                 "foreignField" : "ligaId",
                 "as" : "visitas"
             }
         },
         {
             $group:{
-                _id : null,                    
+                _id : empresa,
                 "VisitasEmpresa" : {
-                    $push : $visitas
+                    $push : "$visitas"
                 }
             }
         }
