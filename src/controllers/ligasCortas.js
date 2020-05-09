@@ -78,18 +78,10 @@ const getVisitasLigasEmpresa = function(req, res) {
             }
         },
         {
-            $lookup:{
-                "localField" : "_id",
-                "from" : "visitasligas",
-                "foreignField" : "ligaId",
-                "as" : "visitas"
-            }
-        },
-        {
             $group:{
                 _id : empresa,
-                "VisitasEmpresa" : {
-                    "$push" : "$visitas"
+                "LigasEmpresa" : {
+                    "$sum" : 1
                 }
             }
         }
