@@ -41,28 +41,27 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
         const ipReq = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         var geo;
         rp('https://freegeoip.app/json/'+ipReq)
-          .then (function (error, response, body){
-          console.log('error:', error); // Print the error if one occurred and handle it
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          console.log(body);
-          geo = body.country_name;
-          console.log("Pais es :");
-          console.log(geo);
-          const data = {
-              ligaId : idLiga,
-              navegador : req.useragent.browser,
-              ip : ipReq,
-              geolocalizacion : geo,
-              fecha : new Date()
-          }
-          const visita = new VisitaLiga(data)
-          visita.save().then(function(visita) {
-            return resolve(visita)
-          }).catch( function(error) {
-            return reject('Error creando visita')
-          })        
+          .then (function (body){
+            console.log(body);
+            geo = body.country_name;
+            console.log("Pais es :");
+            console.log(geo);
+            const data = {
+                ligaId : idLiga,
+                navegador : req.useragent.browser,
+                ip : ipReq,
+                geolocalizacion : geo,
+                fecha : new Date()
+            }
+            const visita = new VisitaLiga(data)
+            visita.save().then(function(visita) {
+              return resolve(visita)
+            }).catch( function(error) {
+              return reject('Error creando visita')
+            })        
           })
           .catch(function (err){
+            console.log("No pude encontrar pais")
             const data = {
               ligaId : idLiga,
               navegador : req.useragent.browser,
