@@ -31,44 +31,6 @@ const getLiga = function(req, res) {
       res.status(404).send(error)
     })
 }
-/*
-const getVisitasLigasEmpresa = function(req, res) {
-    const empresa = req.params.empresa
-    console.log(req.params.empresa)
-    Liga.find({empresaLiga: empresa}).then(function(misligas) {
-      var visitasTotales = 0;
-      var isUpdating = true;
-      for(var j=0; j<misligas.length; j++){
-        const liga = misligas[j]._id;
-        VisitaLiga.countDocuments({ligaId: liga}).then(function(num) {
-            visitasTotales = visitasTotales+1;
-        }).catch(function(error){
-            res.status(404).send(error)
-        })
-        if(j == misligas.length-1){
-            isUpdating = false;
-        }
-      }
-      if(!isUpdating){
-        res.send({'visitasTotales' : visitasTotales})
-      }      
-    }).catch(function(error){
-      res.status(404).send(error)
-    })
-}
-const getVisitasLigasEmpresa = function(req, res) {
-    const empresa = req.params.empresa
-    Liga.ligasEmpresa(empresa).then(function(ligas){
-        VisitaLiga.cuentaTotalLigas(ligas).then(function(total){
-            return res.send(total)
-        }).catch(function(error){
-            return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
-        })
-    }).catch(function(error){
-        return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
-    })
-}
-*/
 
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
@@ -89,13 +51,13 @@ const getVisitasLigasEmpresa = function(req, res) {
         {
             $project:{
                 _id : null,
-                "todo" : {
+                "visita" : {
                     "$concatArrays" : "$visitas"
                 }                
             }
         },
         {
-            $unwind: "$todo"
+            $unwind: "$visita"
         }
     ], (aggregateError, aggregateResult)=>{
         if(!aggregateError)
@@ -104,6 +66,50 @@ const getVisitasLigasEmpresa = function(req, res) {
             return res.status(404).send(aggregateError)        
     })
 }
+
+const getNavegadoresLigasEmpresa = function(req, res) {
+    const empresa = req.params.empresa
+    Liga.aggregate([
+        {
+            $match:{
+                "empresaLiga" : ObjectId(empresa)
+            }
+        },
+        {
+            $lookup:{
+                "localField" : "_id",
+                "from" : "visitaligas",
+                "foreignField" : "ligaId",
+                "as" : "visitas"
+            }
+        },
+        {
+            $project:{
+                _id : null,
+                "visita" : {
+                    "$concatArrays" : "$visitas"
+                }                
+            }
+        },
+        {
+            $unwind: "$visita"
+        },
+        {
+            $group:{
+                _id:"$visita.navegador",
+                "visitas":{
+                     "$sum":1
+                }           
+            }
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res.send(aggregateResult)
+        else
+            return res.status(404).send(aggregateError)        
+    })
+}
+
 
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
@@ -125,5 +131,6 @@ const irLiga = function(req, res){
     irLiga : irLiga,
     getLigasEmpresa : getLigasEmpresa,
     getVisitasLigasEmpresa : getVisitasLigasEmpresa,
+    getNavegadoresLigasEmpresa : getNavegadoresLigasEmpresa,
     getLiga : getLiga
   }
