@@ -96,10 +96,10 @@ visitaLigaSchema.statics.cuentaTotalLigas = function(ligas){
       console.log("tengo que sumar total ligas : "+ligas.length)
       for(var i=0; i<ligas.length; i++){      
         console.log("Sumo las ligas paso "+i+" de "+ligas.length)
-        VisitaLiga.countDocuments({ligaId: ligas[i]._id}).then(function(num) {		 
+        VisitaLiga.visitasLiga([i]._id).then(function(num) {		 
           console.log("Esta liga tiene un total de visitas de:")
-          console.log(num)
-          total = total+num
+          console.log(num.visitas)
+          total = total+num.visitas
         }).catch( function(error) {
           return reject(error)
         })
