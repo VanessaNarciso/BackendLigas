@@ -87,13 +87,15 @@ const getVisitasLigasEmpresa = function(req, res) {
             }
         },
         {
-            $group:{
-                _id : empresa,
-                "VisitasEmpresa" : {
-                    "$push" : "$visitas"
-                },
-                "LigasEmpresa" : {"$sum" : 1}
+            $project:{
+                _id : null,
+                "todo" : {
+                    "$concatArrays" : "$visitas"
+                }                
             }
+        },
+        {
+            $unwind: "$todo"
         }
     ], (aggregateError, aggregateResult)=>{
         if(!aggregateError)
