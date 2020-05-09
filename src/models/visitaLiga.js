@@ -39,18 +39,16 @@ visitaLigaSchema.statics.registerVisit = function(req,idLiga) {
         //Necesitamos el id de la liga que estamos visitando, que llega en idLiga
         //Obtener los datos del req y guardar en VisitaLiga
         const ipReq = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        var geo;
         rp('https://freegeoip.app/json/'+ipReq)
           .then (function (body){
             console.log(body);
-            geo = body.country_name;
             console.log("Pais es :");
-            console.log(geo);
+            console.log(body.country_name);
             const data = {
                 ligaId : idLiga,
                 navegador : req.useragent.browser,
                 ip : ipReq,
-                geolocalizacion : geo,
+                geolocalizacion : body.country_name,
                 fecha : new Date()
             }
             const visita = new VisitaLiga(data)
