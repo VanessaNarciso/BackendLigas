@@ -71,11 +71,11 @@ const getVisitasLigasEmpresa = function(req, res) {
 
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
+    console.log("Empresa a buscar:")
+    console.log(empresa)
     Liga.aggregate([
         {
-            $match:{
-                "empresaLiga" : empresa
-            }
+            $match: empresa            
         },
         {
             $group:{
@@ -86,8 +86,11 @@ const getVisitasLigasEmpresa = function(req, res) {
             }
         }
     ], (aggregateError, aggregateResult)=>{
-        if(!aggregateError)
+        if(!aggregateError){
+            console.log("Resultado aggregate:")
+            console.log(aggregateResult)
             return res.send(aggregateResult)
+        }
         else
             return res.status(404).send(aggregateError)        
     })
