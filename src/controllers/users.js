@@ -62,7 +62,7 @@ const createUser = function(req, res){
 }
 
 const login = function(req, res) {
-  console.log(req.body)
+  //console.log(req.body)
   User.findByCredentials(req.body.correo, req.body.password).then(function(user){
     user.generateToken().then(function(token){
       console.log("Empresa del user: ",user.partOf)
