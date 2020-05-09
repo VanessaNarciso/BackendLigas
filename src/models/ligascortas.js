@@ -37,6 +37,13 @@ const ligasSchema = new mongoose.Schema({
   }
 }) 
 
+//Relación con visitaLiga
+empresaSchema.virtual('visitasLigas',{
+	ref: 'visitaLiga',
+	localField: '_id', 
+	foreignField: 'ligaId'
+  })
+
 ligasSchema.statics.getLiga = function(codeLiga) {
 	console.log("Busco a : ",codeLiga);
 	return new Promise( function(resolve, reject) {

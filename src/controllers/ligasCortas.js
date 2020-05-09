@@ -54,7 +54,7 @@ const getVisitasLigasEmpresa = function(req, res) {
     }).catch(function(error){
       res.status(404).send(error)
     })
-}*/
+}
 const getVisitasLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
     Liga.ligasEmpresa(empresa).then(function(ligas){
@@ -67,7 +67,39 @@ const getVisitasLigasEmpresa = function(req, res) {
         return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
     })
 }
+*/
 
+const getVisitasLigasEmpresa = function(req, res) {
+    const empresa = req.params.empresa
+    Liga.aggregate([
+        {
+            $match:{
+                "empresaLiga" : empresa
+            }
+        },
+        {
+            $lookup:{
+                "localField" : "_id",
+                "from" : "visitasLigas",
+                "foreignField" : "ligaId",
+                "as" : "visitas"
+            }
+        },
+        {
+            $group:{
+                _id : null,                    
+                "VisitasEmpresa" : {
+                    $push : "$visitas"
+                }
+            }
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res(aggregateResult)
+        else
+        return res(aggregateError)
+    })
+}
 
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
