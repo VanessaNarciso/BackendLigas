@@ -26,6 +26,7 @@ const getVisitasLigasEmpresa = function(req, res) {
     console.log(req.params.empresa)
     Liga.find({empresaLiga: empresa}).then(function(misligas) {
       var visitasTotales = 0;
+      var isUpdating = true;
       for(var j=0; j<misligas.length; j++){
         const liga = misligas[j]._id;
         VisitaLiga.countDocuments({ligaId: liga}).then(function(num) {
@@ -33,8 +34,13 @@ const getVisitasLigasEmpresa = function(req, res) {
         }).catch(function(error){
             res.status(404).send(error)
         })
+        if(j == misligas.length-1){
+            isUpdating = false;
+        }
       }
-      res.send({'visitasTotales' : visitasTotales})
+      if(!isUpdating){
+        res.send({'visitasTotales' : visitasTotales})
+      }      
     }).catch(function(error){
       res.status(404).send(error)
     })
