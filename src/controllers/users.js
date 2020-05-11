@@ -13,13 +13,15 @@ const getUsers = function(req, res) {
 
 ///////////////////////////////////////////////////////
 const getUsersCompany = function(req, res) {
-  const idCompany = req.params.id
-  User.find({partOf}).then(function(users) {
+  const idEmpresa = req.params.empresa
+  console.log(req.params.empresa)
+  User.find({partOf: idEmpresa, tipo: 2}).then(function(users) {
     res.send(users)
   }).catch(function(error){
     res.status(500).send(error)
   })
 }
+
 
 const getUser = function(req, res) {
   User.find({}).then(function(users) {
@@ -134,7 +136,7 @@ const deleteUser = function(req, res) {
 
 module.exports = {
   getUsers : getUsers,
-  //getUser: getUser,
+  getUsersCompany : getUsersCompany,
   login: login,
   logout: logout,
   createUser : createUser,

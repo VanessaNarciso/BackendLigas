@@ -19,6 +19,7 @@ router.delete('/users', auth, users.deleteUser) //Delete user
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
+router.get('/users/:empresa', users.getUsersCompany) 
 
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/ligasVisitas/:empresa', ligas.getVisitasLigasEmpresa)
