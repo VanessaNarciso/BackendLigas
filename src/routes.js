@@ -15,11 +15,12 @@ router.post('/logout', auth, users.logout) //Close token
 router.post('/users', users.createUser)  // signup
 router.patch('/users', auth, users.updateUser) //update user
 router.delete('/users', auth, users.deleteUser) //Delete user 
+router.get('/users/:empresa', users.getUsersCompany) 
 
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
-router.get('/users/:empresa', users.getUsersCompany) 
+
 
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/ligasVisitas/:empresa', ligas.getVisitasLigasEmpresa)
@@ -27,6 +28,7 @@ router.get('/ligasVisitasNav/:empresa', ligas.getNavegadoresLigasEmpresa)
 router.get('/liga/:liga', ligas.irLiga)
 router.get('/getLiga/:idLiga', ligas.getLiga)
 router.post('/createLiga', ligas.createLiga)
+router.patch('/ligas/:id', auth, ligas.updateLiga)
 
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
 router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)

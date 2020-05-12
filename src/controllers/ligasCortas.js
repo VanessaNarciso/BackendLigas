@@ -110,6 +110,28 @@ const getNavegadoresLigasEmpresa = function(req, res) {
     })
 }
 
+const updateLiga = function(req, res) {
+  const _id = req.params.id
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['nombreLiga', 'codigoLiga', 'ligaCorta', 'ligaOriginal']
+  // revisa que los updates enviados sean permitidos, que no envie una key que no permitimos
+  const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
+
+  if( !isValidUpdate ) {
+    return res.status(400).send({
+      error: 'Invalid update, only allowed to update: ' + allowedUpdates
+    })
+  }
+  Liga.findOneAndUpdate({ _id, createdBy: req.user._id }, req.body ).then(function(Liga) {
+    if (!liga) {
+      return res.status(404).send({ error: `Task with id ${_id} not found.`})
+    }
+    return res.send(liga)
+  }).catch(function(error) {
+    res.status(500).send({ error: error })
+  })
+}
+
 
 const irLiga = function(req, res){
     //Necesitamos enviar el req y el id de la liga que estamos checando
@@ -132,5 +154,6 @@ const irLiga = function(req, res){
     getLigasEmpresa : getLigasEmpresa,
     getVisitasLigasEmpresa : getVisitasLigasEmpresa,
     getNavegadoresLigasEmpresa : getNavegadoresLigasEmpresa,
-    getLiga : getLiga
+    getLiga : getLiga,
+    updateLiga : updateLiga
   }
