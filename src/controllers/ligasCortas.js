@@ -122,7 +122,7 @@ const updateLiga = function(req, res) {
       error: 'Invalid update, only allowed to update: ' + allowedUpdates
     })
   }
-  Liga.findOneAndUpdate({ _id, createdBy: req.user._id }, req.body ).then(function(liga) {
+  Liga.findOneAndUpdate( _id, req.body ).then(function(liga) {
     if (!liga) {
       return res.status(404).send({ error: `Liga con id ${_id} no encontrada.`})
     }
