@@ -24,8 +24,8 @@ const getUsersCompany = function(req, res) {
 
 
 const getUser = function(req, res) {
-  User.find({}).then(function(users) {
-    res.send(users)
+  User.findOne(req.params.idUser).then(function(userData) {
+    res.send(userData)
   }).catch(function(error){
     res.status(500).send(error)
   })
@@ -137,6 +137,7 @@ const deleteUser = function(req, res) {
 
 module.exports = {
   getUsers : getUsers,
+  getUSer : getUser,
   getUsersCompany : getUsersCompany,
   login: login,
   logout: logout,

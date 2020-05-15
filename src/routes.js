@@ -9,13 +9,14 @@ const auth = require('./middleware/auth')
 
 
 //Rutas para acceder a API 
-//router.get('/users', auth, users.getUser) //Show all 
+//router.get('/users', auth, users.getUser) //Show all
 router.post('/login', users.login) //Login
 router.post('/logout', auth, users.logout) //Close token
 router.post('/users', users.createUser)  // signup
 router.patch('/users', auth, users.updateUser) //update user
-router.delete('/users', auth, users.deleteUser) //Delete user 
-router.get('/users/:empresa', users.getUsersCompany) 
+router.delete('/users', auth, users.deleteUser) //Delete user
+router.get('/users/:empresa', users.getUsersCompany)
+router.get('/user/:idUser', users.getUSer)
 
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
