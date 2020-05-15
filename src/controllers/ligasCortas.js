@@ -113,7 +113,7 @@ const getNavegadoresLigasEmpresa = function(req, res) {
 const updateLiga = function(req, res) {
   const _id = req.params.id
   const updates = Object.keys(req.body)
-  const allowedUpdates = ['nombreLiga', 'codigoLiga', 'ligaCorta', 'ligaOriginal']
+  const allowedUpdates = ['nombreLiga', 'codigoLiga', 'ligaCorta', 'ligaOriginal','fechaModificacion']
   // revisa que los updates enviados sean permitidos, que no envie una key que no permitimos
   const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
 
