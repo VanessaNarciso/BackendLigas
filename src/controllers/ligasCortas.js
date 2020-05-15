@@ -111,7 +111,7 @@ const getNavegadoresLigasEmpresa = function(req, res) {
 }
 
 const updateLiga = function(req, res) {
-  const _id = req.params.id
+  const id = req.params.id
   const updates = Object.keys(req.body)
   const allowedUpdates = ['nombreLiga', 'codigoLiga', 'ligaCorta', 'ligaOriginal','fechaModificacion']
   // revisa que los updates enviados sean permitidos, que no envie una key que no permitimos
@@ -122,14 +122,14 @@ const updateLiga = function(req, res) {
       error: 'Invalid update, only allowed to update: ' + allowedUpdates
     })
   }
-  Liga.findOneAndUpdate( _id, req.body ).then(function(liga) {
+  console.log(req.body)
+  Liga.findOneAndUpdate(id, req.body ).then(function(liga) {
     if (!liga) {
-      return res.status(404).send({ error: `Liga con id ${_id} no encontrada.`})
-    }
-    console.log(liga)
+      return res.status(404).send({ error: `Liga con id ${id} no encontrada.`})
+    }    
     return res.send(liga)
   }).catch(function(error) {
-    res.status(500).send({ error: 'Error al actualizar la liga' })
+    res.status(500).send(error)
   })
 }
 
