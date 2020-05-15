@@ -16,7 +16,7 @@ router.post('/users', users.createUser)  // signup
 router.patch('/users', auth, users.updateUser) //update user
 router.delete('/users', auth, users.deleteUser) //Delete user
 router.get('/users/:empresa', users.getUsersCompany)
-router.get('/user/:idUser', users.getUSer)
+router.get('/user/:idUser',auth, users.getUSer)
 
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany', empresas.getComp)
