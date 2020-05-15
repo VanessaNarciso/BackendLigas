@@ -24,7 +24,7 @@ const getUsersCompany = function(req, res) {
 
 
 const getUser = function(req, res) {
-  User.findOne(req.params.idUser).then(function(userData) {
+  User.findOne({_id : req.params.idUser}).then(function(userData) {
     res.send(userData)
   }).catch(function(error){
     res.status(500).send(error)
