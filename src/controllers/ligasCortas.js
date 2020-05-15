@@ -123,7 +123,7 @@ const updateLiga = function(req, res) {
     })
   }
   console.log(req.body)
-  Liga.findOneAndUpdate(id, req.body ).then(function(liga) {
+  Liga.findByIdAndUpdate(id, req.body ).then(function(liga) {
     if (!liga) {
       return res.status(404).send({ error: `Liga con id ${id} no encontrada.`})
     }    
