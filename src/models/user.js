@@ -55,9 +55,15 @@ const userSchema = new mongoose.Schema({
 })
 
 //Relacion con ligas cortas 
-
 userSchema.virtual('ligascortas',{
   ref: 'liga',
+  localField: '_id', 
+  foreignField: 'createdBy'
+})
+
+//Relacion con landings 
+userSchema.virtual('landings',{
+  ref: 'landing',
   localField: '_id', 
   foreignField: 'createdBy'
 })
