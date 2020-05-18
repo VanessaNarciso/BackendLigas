@@ -6,6 +6,7 @@ const empresas = require('./controllers/empresas.js')
 const ligas = require('./controllers/ligasCortas.js')
 const visitasLigas = require('./controllers/visitasLigas.js')
 const auth = require('./middleware/auth')
+const landing = require('./controllers/landingPages.js')
 
 
 //Rutas para acceder a API 
@@ -33,6 +34,10 @@ router.patch('/ligas/:id', auth, ligas.updateLiga)
 
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
 router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
+
+router.post('/landing', landing.createLanding)
+router.get('/landing/:empresa', landing.getLandingEmpresa)
+router.get('/landing/:landingId', landing.getLanding)
 //
 /*
 router.get('/todos/:id', auth, todos.getTodo)

@@ -16,7 +16,6 @@ const empresaSchema = mongoose.Schema({
   },
   domicilio: {
     type: String
-
   }, 
   numero:{
     type:String

@@ -1,4 +1,4 @@
-const Landing = require('../models/landingpages')
+const Landing = require('../models/landing')
 var ObjectId = require('mongodb').ObjectId;
 
 const createLanding = function(req, res){
@@ -33,5 +33,5 @@ const getLanding = function(req, res) {
   module.exports = {
     createLanding: createLanding,
     getLandingEmpresa : getLandingEmpresa,
-    getLansing : getLanding
+    getLanding : getLanding
   }

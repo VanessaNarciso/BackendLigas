@@ -5,17 +5,22 @@ const landingSchema = new mongoose.Schema({
 	nombreLanding:{
 		type: String
 	}, 
-	ligaLanding:{
+	descriptionLanding:{
+		type: String
+	}, 
+	footerLanding:{
+		type: String
+	},
+	templateChoice:{
+		type: String
+	}, 
+
+	/*ligaLanding:{
 		type: String,
 		required: true,
 		unique: true,
-	},
-	fechaCreacion:{
-   		 type:Date
-    },
-    fechaModificacion:{
-    	type:Date 
-    },
+	},*/
+
     empresaLanding:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -29,14 +34,14 @@ const landingSchema = new mongoose.Schema({
 }) 
 
 //Relación con visitaLanding
-ligasSchema.virtual('visitaLanding',{
+landingSchema.virtual('visitaLanding',{
 	ref: 'visitalanding',
 	localField: '_id', 
 	foreignField: 'landingId'
 })
 
 //Relación con confLanding
-ligasSchema.virtual('confLanding',{
+landingSchema.virtual('confLanding',{
 	ref: 'conflanding',
 	localField: '_id', 
 	foreignField: 'landingId'
