@@ -9,8 +9,7 @@ app.set('view engine', 'hbs')
 /// Para cerar un landing hay que crear su configuración (titulo, texto, footer, img)
 /// Y su información (nombre, descripcion, empresa, creador, template, fechaCreación, liga)
 /// en req.body recibimos  objeto infoLanding y configLanding
-const createLanding = function(req, res){
-    console.log(req.body)
+const createLanding = function(req, res){    
     const newLanding = new Landing(req.body.infoLanding)
     const confLand = req.body.configLanding
     newLanding.save().then(function(){
@@ -20,6 +19,7 @@ const createLanding = function(req, res){
           confLand
         }
         const newConfLanding = new confLanding(confLand)
+        console.log(newConfLanding)
         newConfLanding.save().then(function(){
           return res.send(newLanding,newConfLanding)
         }).catch(function(error){
