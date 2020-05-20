@@ -83,7 +83,7 @@ const irLanding = function(req, res){
       if(!aggregateError)
           return res.send(aggregateResult)
       else
-          return res.status(404).send(aggregateError)        
+          return res.status(404).send(aggregateError)
   })
 }
 
