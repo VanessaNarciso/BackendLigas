@@ -11,7 +11,7 @@ app.set('view engine', 'hbs')
 /// en req.body recibimos  objeto infoLanding y configLanding
 const createLanding = function(req, res){    
     const newLanding = new Landing(req.body.infoLanding)
-    const confLand = req.body.configLanding
+    var confLand = req.body.configLanding
     newLanding.save().then(function(){
         console.log(newLanding)
         const landingId = newLanding._id;
