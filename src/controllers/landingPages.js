@@ -12,22 +12,22 @@ app.set('view engine', 'hbs')
 const createLanding = function(req, res){    
     const newLanding = new Landing(req.body.infoLanding)
     var confLand = req.body.configLanding
-    newLanding.save().then(function(){
-        console.log(newLanding)
+    newLanding.save().then(function(){        
         const landingId = newLanding._id;
         confLand = {
           "landingId" : landingId,
           confLand
         }
+        console.log(confLand)
         const newConfLanding = new confLanding(confLand)
         console.log(newConfLanding)
         newConfLanding.save().then(function(){
           console.log("Creado landing y configuracion")
           return res.send(newLanding,newConfLanding)
-        }).catch(function(error){
+        }).catch(function(error2){
           console.log("Creado landing NO configuracion")
-          console.log(error)
-          return res.status(400).send(error)          
+          console.log(error2)
+          return res.status(400).send(error2)          
         })
     }).catch(function(error){
         console.log("Creado NO landing NO configuracion")
