@@ -20,7 +20,7 @@ const createLanding = function(req, res){
         console.log(newConfLanding)
         newConfLanding.save().then(function(){
           console.log("Creado landing y configuracion")
-          return res.send(newLanding,newConfLanding)
+          return res.send({newLanding,newConfLanding})
         }).catch(function(error2){
           console.log("Creado landing NO configuracion")
           console.log(error2)
