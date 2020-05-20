@@ -14,10 +14,7 @@ const createLanding = function(req, res){
     var confLand = req.body.configLanding
     newLanding.save().then(function(){        
         const landingId = newLanding._id;
-        confLand = {
-          "landingId" : landingId,
-          confLand
-        }
+        confLand["landingId"] = landingId
         console.log(confLand)
         const newConfLanding = new confLanding(confLand)
         console.log(newConfLanding)
