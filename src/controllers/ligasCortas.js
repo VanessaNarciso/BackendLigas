@@ -67,7 +67,7 @@ const getLigas = function(req, res) {
                 "ligaOriginal" : "$ligaOriginal",
                 "ligaCorta" : "$ligaCorta",
                 "createdBy" : "$createdBy",
-                "empresa": { "$arrayElemAt": [ "$empresaLiga.nombre", 0 ] },                              
+                "creator": { "$arrayElemAt": [ "$empresaLiga.nombre", 0 ] },                              
             }
         }
     ], (aggregateError, aggregateResult)=>{
