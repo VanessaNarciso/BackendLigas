@@ -14,11 +14,37 @@ const createLiga = function(req, res){
 
 const getLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
-    console.log(req.params.empresa)
-    Liga.find({empresaLiga: empresa}).then(function(misligas) {
-      res.send(misligas)
-    }).catch(function(error){
-      res.status(404).send(error)
+    Liga.aggregate([
+        {
+            $match:{
+                "empresaLiga" : ObjectId(empresa)
+            }
+        },  
+        {
+            $lookup:{
+                "localField" : "createdBy",
+                "from" : "users",
+                "foreignField" : "_id",
+                "as" : "creator"
+            }
+        },
+        {
+            $project:{
+                "nombreLiga" : "$nombreLiga",
+                "codigoLiga" : "$codigoLiga",
+                "fechaCreacion" : "$fechaCreacion",
+                "fechaModificacion" : "$fechaCreacion",
+                "ligaOriginal" : "$ligaOriginal",
+                "ligaCorta" : "$ligaCorta",
+                "createdBy" : "$createdBy",
+                "creator": { "$arrayElemAt": [ "$creator.nombre", 0 ] },                              
+            }
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res.send(aggregateResult)
+        else
+            return res.status(404).send(aggregateError)        
     })
 }
 

@@ -14,13 +14,11 @@ const landingSchema = new mongoose.Schema({
 	templateChoice:{
 		type: String
 	}, 
-
-	/*ligaLanding:{
+	ligaLanding:{
 		type: String,
 		required: true,
 		unique: true,
-	},*/
-
+	},
     empresaLanding:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,

@@ -1,4 +1,5 @@
 const Landing = require('../models/landing')
+const confLanding = require('../models/conflanding')
 var ObjectId = require('mongodb').ObjectId;
 
 const createLanding = function(req, res){
