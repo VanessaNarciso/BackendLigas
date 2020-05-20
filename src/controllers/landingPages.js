@@ -64,24 +64,20 @@ const irLanding = function(req, res){
       },  
       {
           $lookup:{
-              "from" : "conflanding",
-              "foreignField" : "idLanding",
+              "from" : "conflandings",
+              "foreignField" : "landingId",
               "localField" : "_id",
-              "as" : "confLanding"
+              "as" : "conflanding"
           }
       }
-      /*{
+      {
           $project:{
-              "nombreLiga" : "$nombreLiga",
-              "codigoLiga" : "$codigoLiga",
-              "fechaCreacion" : "$fechaCreacion",
-              "fechaModificacion" : "$fechaCreacion",
-              "ligaOriginal" : "$ligaOriginal",
-              "ligaCorta" : "$ligaCorta",
-              "createdBy" : "$createdBy",
-              "creator": { "$arrayElemAt": [ "$creator.nombre", 0 ] },                              
+              "titulo": { "$arrayElemAt": [ "$conflanding.titulo", 0 ] },
+              "texto": { "$arrayElemAt": [ "$conflanding.texto", 0 ] },
+              "footer": { "$arrayElemAt": [ "$conflanding.footer", 0 ] },
+              "imagen": { "$arrayElemAt": [ "$conflanding.imagen", 0 ] }                              
           }
-      }*/
+      }
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError)
           return res.send(aggregateResult)

@@ -16,6 +16,11 @@ const landingSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	codeLanding:{
+		type: String,
+		required: true,
+		unique: true,
+	},
     empresaLanding:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
