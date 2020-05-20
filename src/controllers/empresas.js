@@ -9,7 +9,7 @@ const getComps = function(req, res) {
   })
 }
 
-const getComp = function(req, res) {
+/*const getComp = function(req, res) {
   const idC = req.body.empresa;
   Empresa.findOne({idC}).then(function(company) {      
     if( !company ) {
@@ -20,6 +20,15 @@ const getComp = function(req, res) {
     res.status(500).send(error)
   })
 }
+*/
+const getComp = function(req, res) {
+  Empresa.findOne({_id : req.params.empresa}).then(function(empresaData) {
+    res.send(empresaData)
+  }).catch(function(error){
+    res.status(500).send(error)
+  })
+}
+
 
 /*const getComp = function(req, res) {
   console.log(req.body)
