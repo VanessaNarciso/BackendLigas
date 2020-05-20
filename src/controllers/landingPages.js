@@ -13,6 +13,7 @@ const createLanding = function(req, res){
     const newLanding = new Landing(req.body.infoLanding)
     const confLand = req.body.configLanding
     newLanding.save().then(function(){
+        console.log(newLanding)
         const landingId = newLanding._id;
         confLand = {
           "landingId" : landingId,
@@ -25,10 +26,12 @@ const createLanding = function(req, res){
           return res.send(newLanding,newConfLanding)
         }).catch(function(error){
           console.log("Creado landing NO configuracion")
-          return res.status(400).send(error)
+          console.log(error)
+          return res.status(400).send(error)          
         })
     }).catch(function(error){
         console.log("Creado NO landing NO configuracion")
+        console.log(error)
         return res.status(400).send(error)
     })
 }
