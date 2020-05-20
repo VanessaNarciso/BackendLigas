@@ -12,7 +12,7 @@ app.set('view engine', 'hbs')
 const createLanding = function(req, res){
     console.log(req.body)
     const newLanding = new Landing(req.body.infoLanding)
-    const confLand = new req.body.configLanding
+    const confLand = req.body.configLanding
     newLanding.save().then(function(){
         const landingId = newLanding._id;
         confLand = {
