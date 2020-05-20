@@ -21,11 +21,14 @@ const createLanding = function(req, res){
         const newConfLanding = new confLanding(confLand)
         console.log(newConfLanding)
         newConfLanding.save().then(function(){
+          console.log("Creado landing y configuracion")
           return res.send(newLanding,newConfLanding)
         }).catch(function(error){
+          console.log("Creado landing NO configuracion")
           return res.status(400).send(error)
         })
     }).catch(function(error){
+        console.log("Creado NO landing NO configuracion")
         return res.status(400).send(error)
     })
 }
