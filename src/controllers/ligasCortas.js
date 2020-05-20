@@ -67,6 +67,74 @@ const getVisitasLigasEmpresa = function(req, res) {
     })
 }
 
+const getVisitasAll = function(req, res) {
+    const empresa = req.params.empresa
+    Liga.aggregate([
+        {
+            $lookup:{
+                "localField" : "_id",
+                "from" : "visitaligas",
+                "foreignField" : "ligaId",
+                "as" : "visitas"
+            }
+        },
+        {
+            $project:{
+                _id : null,
+                "visita" : {
+                    "$concatArrays" : "$visitas"
+                }                
+            }
+        },
+        {
+            $unwind: "$visita"
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res.send(aggregateResult)
+        else
+            return res.status(404).send(aggregateError)        
+    })
+}
+
+const getNavegadoresLigasAll = function(req, res) {
+    const empresa = req.params.empresa
+    Liga.aggregate([
+        {
+            $lookup:{
+                "localField" : "_id",
+                "from" : "visitaligas",
+                "foreignField" : "ligaId",
+                "as" : "visitas"
+            }
+        },
+        {
+            $project:{
+                _id : null,
+                "visita" : {
+                    "$concatArrays" : "$visitas"
+                }                
+            }
+        },
+        {
+            $unwind: "$visita"
+        },
+        {
+            $group:{
+                _id:"$visita.navegador",
+                "visitas":{
+                     "$sum":1
+                }           
+            }
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res.send(aggregateResult)
+        else
+            return res.status(404).send(aggregateError)        
+    })
+}
+
 const getNavegadoresLigasEmpresa = function(req, res) {
     const empresa = req.params.empresa
     Liga.aggregate([
@@ -156,5 +224,7 @@ const irLiga = function(req, res){
     getVisitasLigasEmpresa : getVisitasLigasEmpresa,
     getNavegadoresLigasEmpresa : getNavegadoresLigasEmpresa,
     getLiga : getLiga,
-    updateLiga : updateLiga
+    updateLiga : updateLiga,
+    getVisitasAll : getVisitasAll,
+    getNavegadoresLigasAll : getNavegadoresLigasAll
   }

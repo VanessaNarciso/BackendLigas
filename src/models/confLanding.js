@@ -21,7 +21,7 @@ const confLandingSchema = new mongoose.Schema({
     imagen:{
         type: String
     }
-}) 
+})
 
 const ConfLandings = mongoose.model('confLandings', confLandingSchema)
 module.exports = ConfLandings
