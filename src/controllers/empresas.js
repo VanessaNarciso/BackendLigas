@@ -8,9 +8,9 @@ const getComps = function(req, res) {
     res.status(500).send(error)
   })
 }
-/*
+
 const getComp = function(req, res) {
-  const idC = req.body.id;
+  const idC = req.body.empresa;
   Empresa.findOne({idC}).then(function(company) {      
     if( !company ) {
       res.status(404).send({ message: "Empresa no encontrada" })
@@ -20,15 +20,15 @@ const getComp = function(req, res) {
     res.status(500).send(error)
   })
 }
-*/
-const getComp = function(req, res) {
+
+/*const getComp = function(req, res) {
   console.log(req.body)
   Empresa.getCompany(req.body.id).then(function(company){
     return res.send(company)
   }).catch(function(error) {
     return res.status(401).send({ error: error })
   })
-}
+}*/
 
 
 const createComp = function(req, res){

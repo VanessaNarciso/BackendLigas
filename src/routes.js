@@ -20,9 +20,8 @@ router.get('/users/:empresa', users.getUsersCompany)
 router.get('/user/:idUser', users.getUSer)
 
 router.get('/getCompanies', empresas.getComps)
-router.get('/getCompany', empresas.getComp)
+router.get('/getCompany/:empresa', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
-
 
 router.get('/ligas/', ligas.getLigas)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
