@@ -20,6 +20,9 @@ const confLandingSchema = new mongoose.Schema({
     },
     imagen:{
         type: String
+    },
+    fechaModificacion:{
+        type:Date
     }
 })
 

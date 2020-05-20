@@ -25,7 +25,10 @@ const landingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
-    }
+	},
+	fechaCreacion:{
+		type:Date
+	}
 })
 
 //Relación con visitaLanding
