@@ -23,10 +23,32 @@ const getLigasEmpresa = function(req, res) {
 }
 
 const getLigas = function(req, res) {
-    Liga.find({}).then(function(ligas) {
-      res.send(ligas)
-    }).catch(function(error){
-      res.status(404).send(error)
+    Liga.aggregate([        
+        {
+            $lookup:{
+                "localField" : "empresaLiga",
+                "from" : "empresas",
+                "foreignField" : "_id",
+                "as" : "empresaLiga"
+            }
+        },
+        {
+            $project:{
+                "nombreLiga" : "$nombreLiga",
+                "codigoLiga" : "$codigoLiga",
+                "fechaCreacion" : "$fechaCreacion",
+                "fechaModificacion" : "$fechaCreacion",
+                "ligaOriginal" : "$ligaOriginal",
+                "ligaCorta" : "$ligaCorta",
+                "createdBy" : "$createdBy",
+                "empresa": { "$arrayElemAt": [ "$empresaLiga.nombre", 0 ] },                              
+            }
+        }
+    ], (aggregateError, aggregateResult)=>{
+        if(!aggregateError)
+            return res.send(aggregateResult)
+        else
+            return res.status(404).send(aggregateError)        
     })
 }
 
