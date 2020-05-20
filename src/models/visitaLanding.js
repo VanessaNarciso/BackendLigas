@@ -24,7 +24,7 @@ const visitaLandingSchema = mongoose.Schema({
   },
   ip: {
     type: String
-  }, 
+  },
   geolocalizacion:{
     type:String
   },
