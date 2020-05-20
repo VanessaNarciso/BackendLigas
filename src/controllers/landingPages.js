@@ -2,6 +2,8 @@ const Landing = require('../models/landing')
 const confLanding = require('../models/confLanding')
 var ObjectId = require('mongodb').ObjectId;
 
+/// Para cerar un landing hay que crear su configuración (titulo, texto, footer, img)
+/// Y su información (nombre, descripcion, empresa, creador, template, fechaCreación, liga)
 const createLanding = function(req, res){
     const newLanding = new Landing(req.body)
     newLanding.save().then(function(){

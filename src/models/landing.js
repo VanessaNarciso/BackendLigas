@@ -4,16 +4,13 @@ const validator = require('validator')
 const landingSchema = new mongoose.Schema({
 	nombreLanding:{
 		type: String
-	}, 
-	descriptionLanding:{
-		type: String
-	}, 
-	footerLanding:{
+	},
+	descripcionLanding:{
 		type: String
 	},
 	templateChoice:{
 		type: String
-	}, 
+	},
 	ligaLanding:{
 		type: String,
 		required: true,
@@ -29,7 +26,7 @@ const landingSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     }
-}) 
+})
 
 //Relación con visitaLanding
 landingSchema.virtual('visitaLanding',{
