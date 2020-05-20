@@ -24,11 +24,12 @@ router.get('/getCompany', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
 
 
+router.get('/ligas/', ligas.getLigas)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/ligasVisitas', ligas.getVisitasAll)
 router.get('/ligasVisitas/:empresa', ligas.getVisitasLigasEmpresa)
-router.get('/ligasVisitasNav/:empresa', ligas.getNavegadoresLigasEmpresa)
 router.get('/ligasVisitasNav', ligas.getNavegadoresLigasAll)
+router.get('/ligasVisitasNav/:empresa', ligas.getNavegadoresLigasEmpresa)
 router.get('/:liga', ligas.irLiga)
 router.get('/getLiga/:idLiga', ligas.getLiga)
 router.post('/createLiga', ligas.createLiga)

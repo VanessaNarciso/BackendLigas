@@ -22,6 +22,14 @@ const getLigasEmpresa = function(req, res) {
     })
 }
 
+const getLigas = function(req, res) {
+    Liga.find({}).then(function(ligas) {
+      res.send(ligas)
+    }).catch(function(error){
+      res.status(404).send(error)
+    })
+}
+
 const getLiga = function(req, res) {
     const idLiga = req.params.idLiga
     console.log(req.params.idLiga)
@@ -226,5 +234,6 @@ const irLiga = function(req, res){
     getLiga : getLiga,
     updateLiga : updateLiga,
     getVisitasAll : getVisitasAll,
-    getNavegadoresLigasAll : getNavegadoresLigasAll
+    getNavegadoresLigasAll : getNavegadoresLigasAll,
+    getLigas : getLigas
   }
