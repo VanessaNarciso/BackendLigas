@@ -59,7 +59,7 @@ const irLanding = function(req, res){
   Landing.aggregate([
       {
           $match:{
-              "ligaLanding" : code
+              "codeLanding" : code
           }
       },  
       {
@@ -69,7 +69,7 @@ const irLanding = function(req, res){
               "localField" : "_id",
               "as" : "conflanding"
           }
-      }
+      },
       {
           $project:{
               "titulo": { "$arrayElemAt": [ "$conflanding.titulo", 0 ] },
