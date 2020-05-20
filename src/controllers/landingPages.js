@@ -10,6 +10,7 @@ app.set('view engine', 'hbs')
 /// Y su información (nombre, descripcion, empresa, creador, template, fechaCreación, liga)
 /// en req.body recibimos  objeto infoLanding y configLanding
 const createLanding = function(req, res){
+    console.log(req.body)
     const newLanding = new Landing(req.body.infoLanding)
     const confLand = new req.body.configLanding
     newLanding.save().then(function(){
@@ -23,7 +24,7 @@ const createLanding = function(req, res){
           return res.send(newLanding,newConfLanding)
         }).catch(function(error){
           return res.status(400).send(error)
-        })        
+        })
     }).catch(function(error){
         return res.status(400).send(error)
     })
