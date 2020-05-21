@@ -42,6 +42,7 @@ router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
 router.post('/landing', landing.createLanding)
 router.get('/landing/:empresa', landing.getLandingEmpresa)
 router.get('/landing/:landingId', landing.getLanding)
+router.get('/landing/:template/:code',landing.irLanding)
 /*
 router.post('/createLanding', landing.createLanding)
 router.get('/landingVisitas', landing.getVisitasAll)
