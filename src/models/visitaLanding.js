@@ -55,6 +55,7 @@ visitaLandingSchema.statics.registerVisit = function(req,idLanding) {
               fecha : new Date(),
               tiempoEnPag : 0
           }
+          console.log(data);
           const visita = new VisitaLanding(data)
           visita.save().then(function(visita) {
             return resolve(visita)
