@@ -30,14 +30,27 @@ const getComp = function(req, res) {
 }
 
 
-/*const getComp = function(req, res) {
-  console.log(req.body)
-  Empresa.getCompany(req.body.id).then(function(company){
-    return res.send(company)
+
+const updateCompany = function(req, res) {
+  const _id = req.params.empresa
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['nombre','razon_social', 'domicilio','numero','pais']
+  const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
+
+  if( !isValidUpdate ) {
+    return res.status(400).send({
+      error: 'Invalid update, only allowed to update: ' + allowedUpdates
+    })
+  }
+  Empresa.findByIdAndUpdate(_id, req.body ).then(function(user) {
+    if (!user) {
+      return res.status(404).send()
+    }
+    return res.send(user)
   }).catch(function(error) {
-    return res.status(401).send({ error: error })
+    res.status(500).send(error)
   })
-}*/
+}
 
 
 const createComp = function(req, res){
@@ -54,4 +67,5 @@ module.exports = {
   getComps : getComps,
   getComp : getComp,
   createComp : createComp,
+  updateCompany: updateCompany
 }

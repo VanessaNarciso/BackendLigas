@@ -22,6 +22,8 @@ router.get('/user/:idUser', users.getUSer)
 router.get('/getCompanies', empresas.getComps)
 router.get('/getCompany/:empresa', empresas.getComp)
 router.post('/createCompany', empresas.createComp)
+router.patch('/company/:empresa', empresas.updateCompany)
+
 
 router.get('/ligas/', ligas.getLigas)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
