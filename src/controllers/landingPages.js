@@ -1,5 +1,6 @@
 const Landing = require('../models/landing')
 const confLanding = require('../models/confLanding')
+const VisitaLanding = require('../models/visitaLiga')
 var ObjectId = require('mongodb').ObjectId;
 
 const express = require('express');
@@ -81,7 +82,7 @@ const irLanding = function(req, res){
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError){
         console.log(aggregateResult)
-        VisitaLiga.registerVisit(req, liga._id).then(function(company){
+        VisitaLanding.registerVisit(req, liga._id).then(function(company){
           const datos = aggregateResult[0]
           res.render(
             template,
