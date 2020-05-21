@@ -79,7 +79,7 @@ const irLanding = function(req, res){
           }
       }
   ], (aggregateError, aggregateResult)=>{
-      if(!aggregateError)
+      if(!aggregateError){
         console.log(aggregateResult)
           res.render(
             template,
@@ -90,6 +90,7 @@ const irLanding = function(req, res){
               img : aggregateResult.imagen
             }
           )
+      }
       else
           return res.status(404).send(aggregateError)
   })
