@@ -9,7 +9,7 @@ const auth = require('./middleware/auth')
 const landing = require('./controllers/landingPages.js')
 var path = require('path');
 const app = express();
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Rutas para acceder a API 
