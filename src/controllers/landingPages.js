@@ -81,13 +81,14 @@ const irLanding = function(req, res){
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError){
         console.log(aggregateResult)
+        const datos = aggregateResult[0]
           res.render(
             template,
             {
-              titulo : aggregateResult.titulo,
-              texto : aggregateResult.texto,
-              footer : aggregateResult.footer,
-              img : aggregateResult.imagen
+              titulo : datos.titulo,
+              texto : datos.texto,
+              footer : datos.footer,
+              img : datos.imagen
             }
           )
       }
