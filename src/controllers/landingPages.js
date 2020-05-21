@@ -1,6 +1,7 @@
 const Landing = require('../models/landing')
 const confLanding = require('../models/confLanding')
 const VisitaLanding = require('../models/visitaLanding')
+var _formdata = require('formdata');
 var ObjectId = require('mongodb').ObjectId;
 
 
@@ -12,11 +13,11 @@ app.set('view engine', 'hbs')
 
 /// Para cerar un landing hay que crear su configuración (titulo, texto, footer, img)
 /// Y su información (nombre, descripcion, empresa, creador, template, fechaCreación, liga)
-/// en req.body recibimos  objeto infoLanding y configLanding
-const createLanding = function(req, res){    
+/// en req.body recibimos   UN FORMDATA, el cual vamos a tener que 
+/// partir en objetos infoLanding y configLanding manualmente
+const createLanding = function(req, res){
     const newLanding = new Landing(req.body.infoLanding)
     var confLand = req.body.configLanding
-    var confLandForm = req.body.confLand
     newLanding.save().then(function(){
         const landingId = newLanding._id;
         confLand["landingId"] = landingId
@@ -28,6 +29,7 @@ const createLanding = function(req, res){
         form.keepExtensions = true;
         form.maxFieldsSize = 10*1024*1024;
         form.multiples = false;
+
         form.parse(confLandForm, (err, fields, files)=>{
           if(err){
             //No se pudo cargar la imagen

@@ -19,6 +19,8 @@
     "hbs": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.8",
+    "obj2fd": "^1.0.6",
+    "object-to-formdata": "^3.0.9",
     "pug": "^2.0.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
