@@ -48,7 +48,7 @@ visitaLandingSchema.statics.registerVisit = function(req,idLanding) {
           console.log("Pais es :");
           console.log(body.country_name);
           const data = {
-              ligaId : idLanding,
+              landingId : idLanding,
               navegador : req.useragent.browser,
               ip : ipReq,
               geolocalizacion : body.country_name,
