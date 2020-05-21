@@ -39,6 +39,7 @@ router.patch('/ligas/:id', auth, ligas.updateLiga)
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
 router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
 
+
 router.post('/landing', landing.createLanding)
 router.get('/landings/', landing.getLandingAll)
 router.get('/landings/:empresa', landing.getLandingEmpresa)
