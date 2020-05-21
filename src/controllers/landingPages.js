@@ -82,7 +82,7 @@ const irLanding = function(req, res){
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError){
         console.log(aggregateResult)
-        VisitaLanding.registerVisit(req, aggregateResult._id).then(function(company){
+        VisitaLanding.registerVisit(req, aggregateResult[0]._id).then(function(company){
           const datos = aggregateResult[0]
           res.render(
             template,
