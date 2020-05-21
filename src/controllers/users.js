@@ -4,11 +4,31 @@ const Empresa = require('../models/empresa')
 // GET USERS ya no esta en routes.js ya que un usuario no debería tener acceso
 // a la informacion de TODOS los usuarios a menos que sea administrador
 const getUsers = function(req, res) {
-  User.find({}).then(function(users) {
-    res.send(users)
-  }).catch(function(error){
-    res.status(500).send(error)
-  })
+  User.aggregate([        
+    {
+        $lookup:{
+            "localField" : "partOf",
+            "from" : "empresas",
+            "foreignField" : "_id",
+            "as" : "empresaU"
+        }
+    },
+    {
+        $project:{
+            "nombre" : "$nombre",
+            "correo" : "$correo",
+            "numeroTelefono" : "$numeroTelefono",
+            "tipo" : "$tipo",
+            "_id" : "$_id",
+            "creator": { "$arrayElemAt": [ "$empresaU.nombre", 0 ] },                              
+        }
+    }
+], (aggregateError, aggregateResult)=>{
+    if(!aggregateError)
+        return res.send(aggregateResult)
+    else
+        return res.status(404).send(aggregateError)        
+})
 }
 
 ///////////////////////////////////////////////////////
