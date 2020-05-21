@@ -7,6 +7,8 @@ const ligas = require('./controllers/ligasCortas.js')
 const visitasLigas = require('./controllers/visitasLigas.js')
 const auth = require('./middleware/auth')
 const landing = require('./controllers/landingPages.js')
+var path = require('path');
+app.use(express.static(path.join(__dirname, '/public')));
 
 
 //Rutas para acceder a API 

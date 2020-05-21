@@ -2,12 +2,12 @@ const Landing = require('../models/landing')
 const confLanding = require('../models/confLanding')
 const VisitaLanding = require('../models/visitaLanding')
 var ObjectId = require('mongodb').ObjectId;
-var path = require('path');
+
 
 const express = require('express');
 const app = express();
 app.set('view engine', 'hbs')
-app.use(express.static(path.join(__dirname, '/public')));
+
 
 
 /// Para cerar un landing hay que crear su configuración (titulo, texto, footer, img)
