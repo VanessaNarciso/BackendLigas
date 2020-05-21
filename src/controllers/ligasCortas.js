@@ -267,7 +267,7 @@ const irLiga = function(req, res){
             return res.redirect(liga.ligaOriginal)
         }).catch(function(error) {
             return res.status(401).send({ error: error, msg:'No se pudo registrar visita' })
-        })        
+        })
     }).catch(function(error) {
         return res.status(401).send({ error: error, msg:'No se pudo obtener esa liga'  })
     })

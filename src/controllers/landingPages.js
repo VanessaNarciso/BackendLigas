@@ -81,7 +81,8 @@ const irLanding = function(req, res){
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError){
         console.log(aggregateResult)
-        const datos = aggregateResult[0]
+        VisitaLiga.registerVisit(req, liga._id).then(function(company){
+          const datos = aggregateResult[0]
           res.render(
             template,
             {
@@ -91,6 +92,9 @@ const irLanding = function(req, res){
               img : datos.imagen
             }
           )
+        }).catch(function(error) {
+          return res.status(401).send({ error: error, msg:'No se pudo registrar visita' })
+        })        
       }
       else
           return res.status(404).send(aggregateError)
