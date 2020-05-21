@@ -25,6 +25,7 @@ router.post('/createCompany', empresas.createComp)
 router.patch('/company/:empresa', empresas.updateCompany)
 
 
+router.post('/createLiga', ligas.createLiga)
 router.get('/ligas/', ligas.getLigas)
 router.get('/ligas/:empresa', ligas.getLigasEmpresa)
 router.get('/ligasVisitas', ligas.getVisitasAll)
@@ -33,16 +34,18 @@ router.get('/ligasVisitasNav', ligas.getNavegadoresLigasAll)
 router.get('/ligasVisitasNav/:empresa', ligas.getNavegadoresLigasEmpresa)
 router.get('/:liga', ligas.irLiga)
 router.get('/getLiga/:idLiga', ligas.getLiga)
-router.post('/createLiga', ligas.createLiga)
 router.patch('/ligas/:id', auth, ligas.updateLiga)
 
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
 router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
 
 router.post('/landing', landing.createLanding)
-router.get('/landing/:empresa', landing.getLandingEmpresa)
-router.get('/landing/:landingId', landing.getLanding)
+router.get('/landings/', landing.getLandingAll)
+router.get('/landings/:empresa', landing.getLandingEmpresa)
+
 router.get('/landing/:template/:code',landing.irLanding)
+router.get('/landing/:landingId', landing.getLanding)
+
 /*
 router.post('/createLanding', landing.createLanding)
 router.get('/landingVisitas', landing.getVisitasAll)

@@ -34,16 +34,6 @@ const createLanding = function(req, res){
     })
 }
 
-const getLandingEmpresa = function(req, res) {
-    const empresa = req.params.empresa
-    console.log(req.params.empresa)
-    Landing.find({empresaLanding: empresa}).then(function(mislanding) {
-      res.send(mislanding)
-    }).catch(function(error){
-      res.status(404).send(error)
-    })
-}
-
 const getLanding = function(req, res) {
     const landingId = req.params.landingId
     console.log(req.params.landingId)
@@ -102,9 +92,74 @@ const irLanding = function(req, res){
   })
 }
 
+const getLandingAll = function(req, res) {
+  Landing.aggregate([        
+      {
+          $lookup:{
+            "localField" : "empresaLanding",
+            "from" : "empresas",
+            "foreignField" : "_id",
+            "as" : "empresaLanding"
+          }
+      },
+      {
+          $project:{
+            "nombreLanding" : "$nombreLanding",
+            "codeLanding" : "$codeLanding",
+            "fechaCreacion" : "$fechaCreacion",
+            "ligaLanding" : "$ligaLanding",
+            "templateChoice" : "$templateChoice",
+            "descripcionLanding" : "$descripcionLanding",
+            "creator": { "$arrayElemAt": [ "$empresaLanding.nombre", 0 ] }                             
+          }
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
+const getLandingEmpresa = function(req, res) {
+  const empresa = req.params.empresa
+  Landing.aggregate([
+      {
+          $match:{
+              "empresaLanding" : ObjectId(empresa)
+          }
+      },  
+      {
+        $lookup:{
+          "localField" : "createdBy",
+          "from" : "users",
+          "foreignField" : "_id",
+          "as" : "creator"
+        }
+      },
+      {
+        $project:{
+          "nombreLanding" : "$nombreLanding",
+          "codeLanding" : "$codeLanding",
+          "fechaCreacion" : "$fechaCreacion",
+          "ligaLanding" : "$ligaLanding",
+          "templateChoice" : "$templateChoice",
+          "descripcionLanding" : "$descripcionLanding",
+          "creator": { "$arrayElemAt": [ "$creator.nombre", 0 ] }                             
+        }
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
   module.exports = {
     createLanding: createLanding,
     getLandingEmpresa : getLandingEmpresa,
     getLanding : getLanding,
+    getLandingAll : getLandingAll,
     irLanding : irLanding
   }
