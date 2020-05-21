@@ -69,11 +69,11 @@ router.get('/todos', auth, todos.getTodos)
 router.post('/todos', auth, todos.createTodo)
 router.patch('/todos/:id', auth, todos.updateTodo)
 router.delete('/todos/:id', auth, todos.deleteTodo)*/
-
+/*
 router.get('*', function(req, res) {
   res.send({
     error: 'Server Running /users /Login'
   })
 })
-
+*/
 module.exports = router
