@@ -156,10 +156,158 @@ const getLandingEmpresa = function(req, res) {
   })
 }
 
+const getVisitasLandingsAll = function(req, res) {
+  Landing.aggregate([
+      {
+          $lookup:{
+              "localField" : "_id",
+              "from" : "visitalandings",
+              "foreignField" : "landingId",
+              "as" : "visitas"
+          }
+      },
+      {
+          $project:{
+              _id : null,
+              "visita" : {
+                  "$concatArrays" : "$visitas"
+              }                
+          }
+      },
+      {
+          $unwind: "$visita"
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
+const getVisitasLandingsEmpresa = function(req, res) {
+  const empresa = req.params.empresa
+  Landing.aggregate([
+      {
+        $match:{
+            "empresaLanding" : ObjectId(empresa)
+        }
+      },
+      {
+          $lookup:{
+              "localField" : "_id",
+              "from" : "visitalandings",
+              "foreignField" : "landingId",
+              "as" : "visitas"
+          }
+      },
+      {
+          $project:{
+              _id : null,
+              "visita" : {
+                  "$concatArrays" : "$visitas"
+              }                
+          }
+      },
+      {
+          $unwind: "$visita"
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
+const getNavegadoresLandingsAll = function(req, res) {
+  Landing.aggregate([
+      {
+          $lookup:{
+              "localField" : "_id",
+              "from" : "visitalandings",
+              "foreignField" : "landingId",
+              "as" : "visitas"
+          }
+      },
+      {
+          $project:{
+              _id : null,
+              "visita" : {
+                  "$concatArrays" : "$visitas"
+              }                
+          }
+      },
+      {
+          $unwind: "$visita"
+      },
+      {
+          $group:{
+              _id:"$visita.navegador",
+              "visitas":{
+                   "$sum":1
+              }           
+          }
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
+const getNavegadoresLandingsEmpresa = function(req, res) {
+  const empresa = req.params.empresa
+  Landing.aggregate([
+      {
+        $match:{
+            "empresaLanding" : ObjectId(empresa)
+        }
+      },
+      {
+          $lookup:{
+              "localField" : "_id",
+              "from" : "visitalandings",
+              "foreignField" : "landingId",
+              "as" : "visitas"
+          }
+      },
+      {
+          $project:{
+              _id : null,
+              "visita" : {
+                  "$concatArrays" : "$visitas"
+              }                
+          }
+      },
+      {
+          $unwind: "$visita"
+      },
+      {
+          $group:{
+              _id:"$visita.navegador",
+              "visitas":{
+                   "$sum":1
+              }           
+          }
+      }
+  ], (aggregateError, aggregateResult)=>{
+      if(!aggregateError)
+          return res.send(aggregateResult)
+      else
+          return res.status(404).send(aggregateError)        
+  })
+}
+
   module.exports = {
     createLanding: createLanding,
     getLandingEmpresa : getLandingEmpresa,
     getLanding : getLanding,
     getLandingAll : getLandingAll,
+    getVisitasLandingsAll : getVisitasLandingsAll,
+    getVisitasLandingsEmpresa : getVisitasLandingsEmpresa,
+    getNavegadoresLandingsAll : getNavegadoresLandingsAll,
+    getNavegadoresLandingsEmpresa : getNavegadoresLandingsEmpresa,
     irLanding : irLanding
   }
