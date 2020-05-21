@@ -16,6 +16,7 @@ app.set('view engine', 'hbs')
 const createLanding = function(req, res){    
     const newLanding = new Landing(req.body.infoLanding)
     var confLand = req.body.configLanding
+    var confLandForm = req.body.confLand
     newLanding.save().then(function(){
         const landingId = newLanding._id;
         confLand["landingId"] = landingId
@@ -27,7 +28,7 @@ const createLanding = function(req, res){
         form.keepExtensions = true;
         form.maxFieldsSize = 10*1024*1024;
         form.multiples = false;
-        form.parse(confLand, (err, fields, files)=>{
+        form.parse(confLandForm, (err, fields, files)=>{
           if(err){
             //No se pudo cargar la imagen
             console.log("NO SE PUDO CARGAR IMAGEN");
