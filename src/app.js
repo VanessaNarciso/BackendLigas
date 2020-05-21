@@ -3,7 +3,9 @@ const app = express()
 const Handlebar = require("handlebars");
 const useragent = require('express-useragent');
 var path = require('path');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static('/public/'));
+
 
 
 require('./db/db.js')
