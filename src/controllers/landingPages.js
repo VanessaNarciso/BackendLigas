@@ -6,6 +6,8 @@ var ObjectId = require('mongodb').ObjectId;
 const express = require('express');
 const app = express();
 app.set('view engine', 'hbs')
+app.use(express.static(path.join(__dirname, '/public')));
+
 
 /// Para cerar un landing hay que crear su configuración (titulo, texto, footer, img)
 /// Y su información (nombre, descripcion, empresa, creador, template, fechaCreación, liga)
