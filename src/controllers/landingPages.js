@@ -27,7 +27,11 @@ const createLanding = function(req, res){
         form.keepExtensions = true;
         form.maxFieldsSize = 10*1024*1024;
         form.multiples = false;
-        form.parse(confLand, (err, fields, files)=>{
+        var formData = new FormData();
+        for(var key in confLand){
+          formData.append(key, confLand[key]);
+        }
+        form.parse(formData, (err, fields, files)=>{
           if(err){
             //No se pudo cargar la imagen
             console.log("NO SE PUDO CARGAR IMAGEN");
