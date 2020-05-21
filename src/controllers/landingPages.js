@@ -1,6 +1,6 @@
 const Landing = require('../models/landing')
 const confLanding = require('../models/confLanding')
-const VisitaLanding = require('../models/visitaLiga')
+const VisitaLanding = require('../models/visitaLanding')
 var ObjectId = require('mongodb').ObjectId;
 
 const express = require('express');
