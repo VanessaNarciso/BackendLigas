@@ -16,6 +16,9 @@ app.set('view engine', 'hbs')
 /// en req.body recibimos   UN FORMDATA, el cual vamos a tener que 
 /// partir en objetos infoLanding y configLanding manualmente
 const createLanding = function(req, res){
+    console.log(req.body)
+    var infoLanding = {}
+    var configLanding = {}
     const newLanding = new Landing(req.body.infoLanding)
     var confLand = req.body.configLanding
     newLanding.save().then(function(){
