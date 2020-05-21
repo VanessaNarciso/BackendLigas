@@ -20,7 +20,7 @@ const getUsers = function(req, res) {
             "numeroTelefono" : "$numeroTelefono",
             "tipo" : "$tipo",
             "_id" : "$_id",
-            "creator": { "$arrayElemAt": [ "$empresaU.nombre", 0 ] },                              
+            "empresa": { "$arrayElemAt": [ "$empresaU.nombre", 0 ] },                              
         }
     }
 ], (aggregateError, aggregateResult)=>{
