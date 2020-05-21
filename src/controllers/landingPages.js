@@ -80,6 +80,7 @@ const irLanding = function(req, res){
       }
   ], (aggregateError, aggregateResult)=>{
       if(!aggregateError)
+        console.log(aggregateResult)
           res.render(
             template,
             {
