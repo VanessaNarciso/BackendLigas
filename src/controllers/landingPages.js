@@ -16,20 +16,56 @@ app.set('view engine', 'hbs')
 const createLanding = function(req, res){    
     const newLanding = new Landing(req.body.infoLanding)
     var confLand = req.body.configLanding
-    newLanding.save().then(function(){        
+    newLanding.save().then(function(){
         const landingId = newLanding._id;
         confLand["landingId"] = landingId
         console.log(confLand)
-        const newConfLanding = new confLanding(confLand)
-        console.log(newConfLanding)
-        newConfLanding.save().then(function(){
-          console.log("Creado landing y configuracion")
-          return res.send({newLanding,newConfLanding})
-        }).catch(function(error2){
-          console.log("Creado landing NO configuracion")
-          console.log(error2)
-          return res.status(400).send(error2)          
-        })
+        ///Cargar imagen al confLand
+        let formidable = require('formidable');
+        var form = new formidable.IncomingForm();
+        form.uploadDir = "./public/assets/img";
+        form.keepExtensions = true;
+        form.maxFieldsSize = 10*1024*1024;
+        form.multiples = false;
+        form.parse(confLand, (err, fields, files)=>{
+          if(err){
+            //No se pudo cargar la imagen
+            console.log("NO SE PUDO CARGAR IMAGEN");
+            const newConfLanding = new confLanding(confLand)
+            console.log(newConfLanding)
+            newConfLanding.save().then(function(){
+              console.log("Creado landing y configuracion")
+              return res.send({newLanding,newConfLanding})
+            }).catch(function(error2){
+              console.log("Creado landing NO configuracion")
+              console.log(error2)
+              return res.status(400).send(error2)          
+            })
+          }
+          var arrayOfFiles = files[""];
+          if(arrayOfFiles.length > 0){
+            //Si subió imagen
+            console.log("SI SUBIO Y CARGO IMAGEN :)")
+            var fileNames = [];
+            arrayOfFiles.forEach((eachFile)=>{
+              fileNames.push(eachFile.path)
+            });
+            confLand["imagen"] = fileNames[0];
+          }else{
+            //No subió imagen
+            console.log("NO SE SUBIÓ IMAGEN");            
+          }
+          const newConfLanding = new confLanding(confLand)
+          console.log(newConfLanding)
+          newConfLanding.save().then(function(){
+            console.log("Creado landing y configuracion")
+            return res.send({newLanding,newConfLanding})
+          }).catch(function(error2){
+            console.log("Creado landing NO configuracion")
+            console.log(error2)
+            return res.status(400).send(error2)
+          })
+        })            
     }).catch(function(error){
         console.log("Creado NO landing NO configuracion")
         console.log(error)
