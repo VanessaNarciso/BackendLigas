@@ -32,16 +32,15 @@ router.get('/ligasVisitas', ligas.getVisitasAll)
 router.get('/ligasVisitas/:empresa', ligas.getVisitasLigasEmpresa)
 router.get('/ligasVisitasNav', ligas.getNavegadoresLigasAll)
 router.get('/ligasVisitasNav/:empresa', ligas.getNavegadoresLigasEmpresa)
-router.get('/:liga', ligas.irLiga)
+
 router.get('/getLiga/:idLiga', ligas.getLiga)
 router.patch('/ligas/:id', auth, ligas.updateLiga)
 
 router.get('/visitas/:liga', visitasLigas.getVisitasLiga)
 router.get('/numvisitas/:liga', visitasLigas.getContadorLiga)
 
-
 router.post('/landing', landing.createLanding)
-router.get('/getlandings/', landing.getLandingAll)
+router.get('/landings/', landing.getLandingAll)
 router.get('/landings/:empresa', landing.getLandingEmpresa)
 router.get('/landingsVisitas', landing.getVisitasLandingsAll)
 router.get('/landingsVisitas/:empresa', landing.getVisitasLandingsEmpresa)
@@ -49,6 +48,8 @@ router.get('/landingsVisitasNav', landing.getNavegadoresLandingsAll)
 router.get('/landingsVisitasNav/:empresa', landing.getNavegadoresLandingsEmpresa)
 router.get('/landing/:template/:code',landing.irLanding)
 router.get('/landing/:landingId', landing.getLanding)
+
+router.get('/:liga', ligas.irLiga)
 
 /*
 router.post('/createLanding', landing.createLanding)
